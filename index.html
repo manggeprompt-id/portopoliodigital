@@ -1,0 +1,2774 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Portofolio Digital & Akademik - Raisya | Universitas Widya Nusantara</title>
+    
+    <!-- PWA Manifest via Data URI -->
+    <link rel="manifest" href='data:application/manifest+json,{"name":"Portofolio Digital Raisya - UWN","short_name":"Raisya UWN","start_url":".","display":"standalone","background_color":"#f8fafc","theme_color":"#4f46e5","description":"Sistem Portofolio Digital & Akademik Mahasiswa Universitas Widya Nusantara","icons":[{"src":"https://placehold.co/192x192/4f46e5/ffffff?text=RU","sizes":"192x192","type":"image/png"},{"src":"https://placehold.co/512x512/4f46e5/ffffff?text=Raisya+UWN","sizes":"512x512","type":"image/png"}]}'>
+    <meta name="theme-color" content="#4f46e5">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <!-- Google Fonts: Inter & Plus Jakarta Sans -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        /* Root Full-Screen Container agar menutup penuh halaman Blogger/GitHub Pages tanpa edit XML */
+        #uwn-app-root {
+            position: fixed;
+            inset: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 999999;
+            overflow: hidden;
+            background: linear-gradient(135deg, #f8fafc 0%, #eef2ff 50%, #f1f5f9 100%);
+            font-family: 'Inter', sans-serif;
+            color: #1e293b;
+            display: flex;
+            flex-direction: column;
+        }
+
+        h1, h2, h3, h4, .font-heading {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        /* Glassmorphism Corporate Modern */
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.9);
+            box-shadow: 0 10px 30px -5px rgba(15, 23, 42, 0.05);
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(226, 232, 240, 0.85);
+            box-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.04);
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .glass-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 28px -4px rgba(79, 70, 229, 0.1);
+            border-color: rgba(99, 102, 241, 0.35);
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 9999px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+
+        /* Responsive Navigation Media Queries */
+        @media (min-width: 1024px) {
+            #desktop-sidebar {
+                display: flex !important;
+            }
+            #mobile-bottom-nav {
+                display: none !important;
+            }
+            #main-scroll-area {
+                padding-bottom: 2rem;
+            }
+            #floating-wa-btn {
+                bottom: 28px;
+                right: 28px;
+            }
+        }
+
+        @media (max-width: 1023px) {
+            #desktop-sidebar {
+                display: none !important;
+            }
+            #mobile-bottom-nav {
+                display: flex !important;
+            }
+            #main-scroll-area {
+                padding-bottom: 6.5rem;
+            }
+            #floating-wa-btn {
+                bottom: 90px;
+                right: 16px;
+            }
+        }
+
+        /* Pulse Animation for Floating WhatsApp */
+        @keyframes waPulse {
+            0% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.55); }
+            70% { box-shadow: 0 0 0 14px rgba(34, 197, 94, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0); }
+        }
+        .wa-float-pulse {
+            animation: waPulse 2s infinite;
+        }
+
+        /* Aspect Ratio Video Container */
+        .video-responsive {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+            border-radius: 0.75rem;
+            background: #0f172a;
+        }
+        .video-responsive iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+    </style>
+</head>
+<body>
+
+<div id="uwn-app-root">
+    <!-- TOP PREVIEW BANNER (Hanya Tampil Saat IS_PREVIEW = true) -->
+    <div id="preview-banner" class="hidden bg-gradient-to-r from-indigo-900 via-indigo-800 to-violet-900 text-white px-4 py-2 text-xs flex-wrap items-center justify-between gap-2 shrink-0 border-b border-indigo-700/50 shadow-sm">
+        <div class="flex items-center gap-2">
+            <span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold bg-amber-400 text-slate-950 uppercase tracking-wider">
+                <i class="fa-solid fa-bolt mr-1"></i> Mode Preview
+            </span>
+            <span class="font-medium text-indigo-100">Simulasi Aktif — Ubah <code class="bg-indigo-950/80 px-1.5 py-0.5 rounded text-amber-300">IS_PREVIEW = false</code> saat deploy ke Supabase.</span>
+        </div>
+        <div class="flex items-center gap-1.5 flex-wrap">
+            <span class="text-indigo-200 mr-1 hidden sm:inline">Akses Cepat:</span>
+            <button onclick="window.app.quickLogin('admin')" class="px-2.5 py-1 rounded-lg bg-emerald-500 hover:bg-emerald-600 text-white font-semibold transition flex items-center gap-1 shadow-sm">
+                <i class="fa-solid fa-user-shield"></i> Admin (Raisya)
+            </button>
+            <button onclick="window.app.quickLogin('reviewer')" class="px-2.5 py-1 rounded-lg bg-sky-500 hover:bg-sky-600 text-white font-semibold transition flex items-center gap-1 shadow-sm">
+                <i class="fa-solid fa-chalkboard-user"></i> Dosen / Reviewer
+            </button>
+            <button onclick="window.app.quickLogin('public')" class="px-2.5 py-1 rounded-lg bg-white/15 hover:bg-white/25 text-white font-medium transition flex items-center gap-1">
+                <i class="fa-solid fa-globe"></i> Pengunjung
+            </button>
+        </div>
+    </div>
+
+    <!-- MAIN WORKSPACE -->
+    <div class="flex flex-1 overflow-hidden relative">
+        
+        <!-- DESKTOP FIXED SIDEBAR -->
+        <aside id="desktop-sidebar" class="w-72 glass-panel border-r border-slate-200/80 flex-col justify-between shrink-0 z-20 select-none">
+            <div class="p-5 overflow-y-auto">
+                <!-- Brand Identity UWN -->
+                <div class="flex items-center gap-3.5 pb-5 border-b border-slate-200/80">
+                    <div class="relative shrink-0">
+                        <img id="sidebar-avatar" src="https://placehold.co/120x120/4f46e5/ffffff?text=R" alt="Raisya" class="w-12 h-12 rounded-2xl object-cover ring-2 ring-indigo-500/30 shadow-md">
+                        <span class="absolute -bottom-1 -right-1 w-4 h-4 bg-emerald-500 border-2 border-white rounded-full" title="Aktif"></span>
+                    </div>
+                    <div class="min-w-0">
+                        <h1 id="sidebar-name" class="font-heading font-bold text-slate-900 text-base truncate">Raisya</h1>
+                        <p class="text-xs font-semibold text-indigo-600 truncate">Universitas Widya Nusantara</p>
+                        <p id="sidebar-prodi" class="text-[11px] text-slate-500 truncate">Portofolio Akademik</p>
+                    </div>
+                </div>
+
+                <!-- Role Status Badge -->
+                <div class="mt-4 mb-3 px-3 py-2 rounded-xl bg-slate-100/90 border border-slate-200/70 flex items-center justify-between">
+                    <div class="flex items-center gap-2 min-w-0">
+                        <i id="role-icon" class="fa-solid fa-globe text-slate-500 text-xs"></i>
+                        <span id="role-label" class="text-xs font-semibold text-slate-700 truncate">Mode Pengunjung</span>
+                    </div>
+                    <button id="btn-sidebar-auth" onclick="window.app.openAuthModal()" class="text-[11px] font-bold text-indigo-600 hover:text-indigo-800 px-2 py-0.5 rounded-md bg-indigo-50 hover:bg-indigo-100 transition">
+                        Login
+                    </button>
+                </div>
+
+                <!-- Navigation Menu -->
+                <nav class="space-y-1 mt-4" id="desktop-nav-links">
+                    <!-- Rendered dynamically via JS -->
+                </nav>
+            </div>
+
+            <!-- Sidebar Footer Socials & Quick Info -->
+            <div class="p-4 border-t border-slate-200/80 bg-white/50">
+                <p class="text-[11px] font-semibold text-slate-400 uppercase tracking-wider mb-2.5">Terhubung Langsung</p>
+                <div class="flex items-center gap-2" id="sidebar-social-links">
+                    <!-- Dynamic Social Icons -->
+                </div>
+                <p class="text-[10px] text-slate-400 mt-3 flex items-center justify-between">
+                    <span>© Universitas Widya Nusantara</span>
+                    <span class="text-indigo-500 font-semibold">PWA Ready</span>
+                </p>
+            </div>
+        </aside>
+
+        <!-- MAIN CONTENT AREA -->
+        <div class="flex-1 flex flex-col min-w-0 overflow-hidden">
+            
+            <!-- TOP HEADER BAR -->
+            <header class="glass-panel border-b border-slate-200/80 px-4 lg:px-8 py-3.5 flex items-center justify-between shrink-0 z-10">
+                <div class="flex items-center gap-3 min-w-0">
+                    <img id="mobile-header-avatar" src="https://placehold.co/100x100/4f46e5/ffffff?text=R" alt="Raisya" class="w-9 h-9 rounded-xl object-cover lg:hidden ring-2 ring-indigo-500/20">
+                    <div class="min-w-0">
+                        <div class="flex items-center gap-2">
+                            <h2 id="page-title" class="font-heading font-bold text-slate-900 text-base sm:text-lg truncate">Beranda & Profil Akademik</h2>
+                            <span class="hidden sm:inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-semibold bg-indigo-50 text-indigo-700 border border-indigo-200/60">
+                                UWN Palu
+                            </span>
+                        </div>
+                        <p id="page-subtitle" class="text-xs text-slate-500 truncate">Ringkasan akademik, mata kuliah, tugas dosen & karya Raisya</p>
+                    </div>
+                </div>
+
+                <!-- Right Actions: Social Shortcuts + Auth Button -->
+                <div class="flex items-center gap-2 shrink-0">
+                    <!-- Social Media Quick Header Icons -->
+                    <div id="header-social-icons" class="hidden sm:flex items-center gap-1.5 mr-1"></div>
+
+                    <!-- Admin Quick Add / Edit Profile Button -->
+                    <button id="header-admin-edit-btn" onclick="window.app.openProfileModal()" class="hidden items-center gap-1.5 px-3 py-1.5 rounded-xl bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-semibold transition border border-indigo-200/60">
+                        <i class="fa-solid fa-pen-to-square"></i>
+                        <span class="hidden md:inline">Edit Profil & Sosmed</span>
+                    </button>
+
+                    <!-- Auth Login / Logout Button -->
+                    <button id="header-auth-btn" onclick="window.app.openAuthModal()" class="flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-white text-xs font-semibold transition shadow-sm">
+                        <i class="fa-solid fa-right-to-bracket"></i>
+                        <span>Login Akses</span>
+                    </button>
+                </div>
+            </header>
+
+            <!-- SCROLLABLE VIEWPORT -->
+            <main id="main-scroll-area" class="flex-1 overflow-y-auto px-4 sm:px-6 lg:px-8 py-6 space-y-6">
+                <!-- Dynamic Section Content Injected Here -->
+                <div id="app-content" class="max-w-6xl mx-auto space-y-6"></div>
+            </main>
+        </div>
+    </div>
+
+    <!-- MOBILE FLOATING BOTTOM NAVIGATION BAR -->
+    <nav id="mobile-bottom-nav" class="fixed bottom-3 left-3 right-3 glass-panel rounded-2xl border border-slate-200/90 shadow-xl px-2 py-1.5 justify-around items-center z-30">
+        <!-- Rendered dynamically via JS -->
+    </nav>
+
+    <!-- FLOATING WHATSAPP SIDE BUTTON -->
+    <a id="floating-wa-btn" href="https://wa.me/6281234567890" target="_blank" rel="noopener noreferrer" 
+       class="fixed z-40 flex items-center gap-2.5 bg-emerald-500 hover:bg-emerald-600 text-white pl-3.5 pr-4 py-3 rounded-full shadow-xl transition-all duration-300 group wa-float-pulse"
+       title="Hubungi WhatsApp Raisya">
+        <i class="fa-brands fa-whatsapp text-2xl"></i>
+        <div class="flex flex-col text-left leading-tight">
+            <span class="text-[10px] font-medium text-emerald-100">Chat Langsung</span>
+            <span class="text-xs font-bold tracking-wide">WhatsApp Raisya</span>
+        </div>
+    </a>
+
+    <!-- UNIVERSAL MODAL CONTAINER -->
+    <div id="modal-backdrop" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-50 hidden items-center justify-center p-4 overflow-y-auto">
+        <div id="modal-box" class="bg-white rounded-3xl max-w-xl w-full p-6 shadow-2xl border border-slate-100 my-8 max-h-[90vh] overflow-y-auto relative">
+            <!-- Dynamic Modal Content -->
+        </div>
+    </div>
+
+    <!-- CUSTOM TOAST NOTIFICATION -->
+    <div id="toast-container" class="fixed top-14 right-4 z-50 flex flex-col gap-2 max-w-sm w-full pointer-events-none px-4 sm:px-0"></div>
+</div>
+
+<script type="module">
+    // ============================================================================
+    // KONFIGURASI APLIKASI (WAJIB DI PALING ATAS)
+    // ============================================================================
+    const IS_PREVIEW = false; // Ubah menjadi false SAAT DEPLOY agar mode preview & data dummy hilang dan terhubung 100% ke Supabase
+    const SUPABASE_URL = "https://wmrjwscrdsllydmiqcep.supabase.co";
+    const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Indtcmp3c2NyZHNsbHlkbWlxY2VwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTMwMzgxNTQsImV4cCI6MjEwODYxNDE1NH0.xyrXXcM272fTkzFRQ2qHBPPSOOKO1PaakIqAuiw-ekw";
+
+    import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm';
+
+    // Inisialisasi Supabase Client jika IS_PREVIEW = false
+    let supabase = null;
+    if (!IS_PREVIEW && SUPABASE_URL !== "URL_SUPABASE_ANDA" && SUPABASE_ANON_KEY !== "ANON_KEY_ANDA") {
+        supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+    }
+
+    // ============================================================================
+    // REGISTRASI SERVICE WORKER PWA DINAMIS (SINGLE FILE)
+    // ============================================================================
+    if ('serviceWorker' in navigator) {
+        const swCode = `
+            self.addEventListener('install', (e) => self.skipWaiting());
+            self.addEventListener('activate', (e) => e.waitUntil(self.clients.claim()));
+            self.addEventListener('fetch', (e) => {});
+        `;
+        const blob = new Blob([swCode], { type: 'application/javascript' });
+        const swUrl = URL.createObjectURL(blob);
+        navigator.serviceWorker.register(swUrl).catch(() => {});
+    }
+
+    // ============================================================================
+    // STATE APLIKASI & DATA MINIMALIS (HANYA AKTIF SAAT IS_PREVIEW = true)
+    // ============================================================================
+    const todayStr = new Date().toISOString().split('T')[0];
+    const next3DaysStr = new Date(Date.now() + 3 * 86400000).toISOString().split('T')[0];
+    const next7DaysStr = new Date(Date.now() + 7 * 86400000).toISOString().split('T')[0];
+
+    const INITIAL_PREVIEW_DATA = {
+        profile: {
+            id: 'prof-1',
+            full_name: 'Raisya',
+            nim: '202301045',
+            program_studi: 'S1 Ilmu Kesehatan / Sistem Informasi Akademik',
+            university: 'Universitas Widya Nusantara (UWN)',
+            bio: 'Mahasiswa aktif Universitas Widya Nusantara yang berfokus pada pengembangan kompetensi akademik, riset inovatif, manajemen proyek perkuliahan terstruktur, serta dokumentasi karya digital.',
+            skills: 'Manajemen Akademik, Riset & Analisis, Presentasi Publik, Microsoft Office, Desain Digital, Kolaborasi Tim',
+            avatar_url: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80',
+            banner_url: 'https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&w=1200&q=80',
+            whatsapp_number: '6281234567890',
+            instagram_url: 'https://instagram.com/raisya.uwn',
+            facebook_url: 'https://facebook.com/raisya.uwn',
+            linkedin_url: 'https://linkedin.com/in/raisya-uwn',
+            cv_link: '#unduh-cv-raisya'
+        },
+        courses: [
+            {
+                id: 'crs-1',
+                course_code: 'UWN-301',
+                course_name: 'Metodologi Penelitian & Karya Ilmiah',
+                lecturer_name: 'Dr. Hendra Wijaya, M.Kes',
+                semester: 'Semester 5',
+                credits: 3
+            },
+            {
+                id: 'crs-2',
+                course_code: 'UWN-308',
+                course_name: 'Sistem Informasi & Literasi Digital',
+                lecturer_name: 'Ibu Siti Rahmawati, S.Kom., M.T.',
+                semester: 'Semester 5',
+                credits: 3
+            }
+        ],
+        assignments: [
+            {
+                id: 'asg-1',
+                course_id: 'crs-1',
+                title: 'Penyusunan Bab 1-3 Proposal Riset Mahasiswa UWN',
+                category: 'Individu',
+                status: 'Sementara Dikerjakan',
+                assigned_date: todayStr,
+                due_date: next3DaysStr,
+                description: 'Menyusun latar belakang masalah, tinjauan pustaka, dan kerangka konsep penelitian sesuai pedoman akademik Universitas Widya Nusantara.',
+                image_url: 'https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?auto=format&fit=crop&w=600&q=80',
+                youtube_url: 'https://www.youtube.com/watch?v=jfKfPfyJRdk',
+                attachment_link: 'https://drive.google.com'
+            },
+            {
+                id: 'asg-2',
+                course_id: 'crs-2',
+                title: 'Praktikum Pembuatan Portofolio Digital Interaktif',
+                category: 'Praktikum',
+                status: 'Selesai',
+                assigned_date: todayStr,
+                due_date: next7DaysStr,
+                description: 'Membangun sistem informasi portofolio akademik terintegrasi database beserta dokumentasi video presentasi.',
+                image_url: 'https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=600&q=80',
+                youtube_url: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
+                attachment_link: 'https://github.com'
+            }
+        ],
+        youtube_videos: [
+            {
+                id: 'yt-1',
+                title: 'Video Presentasi Seminar Proposal & Proyek Akademik - Raisya UWN',
+                category: 'Presentasi Tugas',
+                youtube_url: 'https://www.youtube.com/watch?v=jfKfPfyJRdk',
+                description: 'Dokumentasi pemaparan materi tugas kuliah dan karya inovatif mahasiswa Universitas Widya Nusantara.'
+            },
+            {
+                id: 'yt-2',
+                title: 'Dokumentasi Praktikum & Kegiatan Kampus Universitas Widya Nusantara',
+                category: 'Kegiatan Kampus',
+                youtube_url: 'https://www.youtube.com/watch?v=5qap5aO4i9A',
+                description: 'Liputan kegiatan praktikum laboratorium dan kolaborasi mahasiswa di lingkungan kampus UWN.'
+            }
+        ],
+        portfolio_items: [
+            {
+                id: 'port-1',
+                title: 'Riset Inovasi Layanan Akademik & Kesehatan Masyarakat',
+                item_type: 'Proyek',
+                category: 'Karya Ilmiah & Riset',
+                issuer_or_client: 'Universitas Widya Nusantara',
+                date_achieved: '2025',
+                description: 'Studi analitis dan pengembangan modul edukasi berbasis digital untuk peningkatan literasi mahasiswa dan masyarakat.',
+                image_url: 'https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&w=600&q=80',
+                external_link: 'https://uwn.ac.id'
+            },
+            {
+                id: 'port-2',
+                title: 'Sertifikat Seminar Nasional & Kompetensi Akademik UWN',
+                item_type: 'Sertifikat',
+                category: 'Penghargaan & Seminar',
+                issuer_or_client: 'Universitas Widya Nusantara',
+                date_achieved: '2025',
+                description: 'Peserta & Pemakalah Terbaik dalam Seminar Nasional Inovasi Mahasiswa Universitas Widya Nusantara.',
+                image_url: 'https://images.unsplash.com/photo-1589330694653-ded6df03f754?auto=format&fit=crop&w=600&q=80',
+                external_link: '#'
+            }
+        ],
+        reviewer_users: [
+            {
+                id: 'rev-1',
+                username: 'dosen_uwn',
+                password: '123',
+                full_name: 'Dr. Hendra Wijaya, M.Kes',
+                role_title: 'Dosen Pembimbing UWN'
+            }
+        ],
+        guestbook_messages: [
+            {
+                id: 'msg-1',
+                sender_name: 'Dr. Hendra Wijaya, M.Kes',
+                sender_role: 'Dosen Pembimbing UWN (Terverifikasi)',
+                reviewer_id: 'rev-1',
+                message: 'Portofolio dan manajemen progres tugas kuliah Raisya sangat rapi. Pertahankan kedisiplinan pengumpulan tugas sebelum deadline.',
+                admin_reply: 'Terima kasih banyak Bapak atas bimbingan dan masukannya. Akan terus saya tingkatkan.'
+            }
+        ]
+    };
+
+    const EMPTY_LIVE_PROFILE = {
+        id: null,
+        full_name: 'Raisya',
+        nim: '-',
+        program_studi: 'Mahasiswa Universitas Widya Nusantara',
+        university: 'Universitas Widya Nusantara',
+        bio: 'Selamat datang di Portofolio Digital & Akademik Raisya - Universitas Widya Nusantara.',
+        skills: 'Akademik, Riset, Portofolio Digital',
+        avatar_url: 'https://placehold.co/300x300/4f46e5/ffffff?text=Raisya',
+        banner_url: 'https://placehold.co/1200x400/312e81/ffffff?text=Universitas+Widya+Nusantara',
+        whatsapp_number: '6281234567890',
+        instagram_url: 'https://instagram.com',
+        facebook_url: 'https://facebook.com',
+        linkedin_url: 'https://linkedin.com',
+        cv_link: '#'
+    };
+
+    const state = {
+        activeTab: 'home',
+        role: 'public', // 'public' | 'admin' | 'reviewer'
+        currentUser: null,
+        profile: IS_PREVIEW ? { ...INITIAL_PREVIEW_DATA.profile } : { ...EMPTY_LIVE_PROFILE },
+        courses: IS_PREVIEW ? [...INITIAL_PREVIEW_DATA.courses] : [],
+        assignments: IS_PREVIEW ? [...INITIAL_PREVIEW_DATA.assignments] : [],
+        youtube_videos: IS_PREVIEW ? [...INITIAL_PREVIEW_DATA.youtube_videos] : [],
+        portfolio_items: IS_PREVIEW ? [...INITIAL_PREVIEW_DATA.portfolio_items] : [],
+        reviewer_users: IS_PREVIEW ? [...INITIAL_PREVIEW_DATA.reviewer_users] : [],
+        guestbook_messages: IS_PREVIEW ? [...INITIAL_PREVIEW_DATA.guestbook_messages] : [],
+        // Filter & UI State
+        assignmentCourseFilter: 'ALL',
+        assignmentStatusFilter: 'ALL',
+        portfolioTypeFilter: 'ALL',
+        activeYoutubeVideoId: null,
+        calendarYear: new Date().getFullYear(),
+        calendarMonth: new Date().getMonth(),
+        selectedCalendarDate: todayStr
+    };
+
+    const NAV_ITEMS = [
+        { id: 'home', label: 'Beranda & Profil', shortLabel: 'Profil', icon: 'fa-solid fa-house-user', subtitle: 'Biodata akademik Universitas Widya Nusantara & statistik' },
+        { id: 'courses', label: 'Mata Kuliah', shortLabel: 'Matkul', icon: 'fa-solid fa-book-bookmark', subtitle: 'Pengaturan daftar mata kuliah & dosen pengampu UWN' },
+        { id: 'assignments', label: 'Tugas Dosen', shortLabel: 'Tugas', icon: 'fa-solid fa-list-check', subtitle: 'Daftar tugas kuliah, status pengerjaan & bukti kumpul' },
+        { id: 'calendar', label: 'Kalender Tugas', shortLabel: 'Kalender', icon: 'fa-solid fa-calendar-days', subtitle: 'Kalender akademik & jadwal batas pengumpulan tugas' },
+        { id: 'youtube', label: 'Ruang YouTube', shortLabel: 'YouTube', icon: 'fa-brands fa-youtube', subtitle: 'Pemutar langsung video presentasi & dokumentasi di aplikasi' },
+        { id: 'portfolio', label: 'Karya & Sertifikat', shortLabel: 'Karya', icon: 'fa-solid fa-award', subtitle: 'Galeri proyek akademik, riset & sertifikat pencapaian' },
+        { id: 'guestbook', label: 'Ruang Dosen', shortLabel: 'Dosen', icon: 'fa-solid fa-comments', subtitle: 'Evaluasi dosen, buku tamu & pengaturan akses reviewer' }
+    ];
+
+    // ============================================================================
+    // UTILITY FUNCTIONS (YOUTUBE PARSER, IMAGE UPLOAD COMPRESSOR, TOAST)
+    // ============================================================================
+    function extractYoutubeId(url) {
+        if (!url) return null;
+        const cleanUrl = url.trim();
+        const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=|shorts\/)([^#&?]*).*/;
+        const match = cleanUrl.match(regExp);
+        return (match && match[2].length === 11) ? match[2] : null;
+    }
+
+    function getYoutubeEmbedUrl(url) {
+        const videoId = extractYoutubeId(url);
+        return videoId ? `https://www.youtube.com/embed/${videoId}?rel=0` : null;
+    }
+
+    function getYoutubeThumbnail(url) {
+        const videoId = extractYoutubeId(url);
+        return videoId ? `https://img.youtube.com/vi/${videoId}/hqdefault.jpg` : 'https://placehold.co/600x340/1e1b4b/ffffff?text=Video+YouTube';
+    }
+
+    // Kompresi gambar otomatis via HTML5 Canvas agar ringan disimpan di Supabase / State
+    function compressAndReadImage(file, maxWidth = 900, quality = 0.8) {
+        return new Promise((resolve, reject) => {
+            if (!file) return reject('Tidak ada file dipilih');
+            const reader = new FileReader();
+            reader.onload = (event) => {
+                const img = new Image();
+                img.onload = () => {
+                    const canvas = document.createElement('canvas');
+                    let width = img.width;
+                    let height = img.height;
+                    if (width > maxWidth) {
+                        height = Math.round((height * maxWidth) / width);
+                        width = maxWidth;
+                    }
+                    canvas.width = width;
+                    canvas.height = height;
+                    const ctx = canvas.getContext('2d');
+                    ctx.drawImage(img, 0, 0, width, height);
+                    const dataUrl = canvas.toDataURL('image/jpeg', quality);
+                    resolve(dataUrl);
+                };
+                img.onerror = () => reject('Gagal memuat gambar');
+                img.src = event.target.result;
+            };
+            reader.onerror = () => reject('Gagal membaca file');
+            reader.readAsDataURL(file);
+        });
+    }
+
+    function showToast(message, type = 'success') {
+        const container = document.getElementById('toast-container');
+        const toast = document.createElement('div');
+        const colors = {
+            success: 'bg-emerald-600 text-white border-emerald-500',
+            error: 'bg-rose-600 text-white border-rose-500',
+            info: 'bg-indigo-600 text-white border-indigo-500'
+        };
+        const icons = {
+            success: 'fa-circle-check',
+            error: 'fa-circle-exclamation',
+            info: 'fa-circle-info'
+        };
+        toast.className = `pointer-events-auto flex items-center gap-3 px-4 py-3 rounded-2xl shadow-xl border ${colors[type] || colors.info} text-xs font-semibold transition-all duration-300`;
+        toast.innerHTML = `
+            <i class="fa-solid ${icons[type] || icons.info} text-base"></i>
+            <span class="flex-1">${message}</span>
+        `;
+        container.appendChild(toast);
+        setTimeout(() => {
+            toast.style.opacity = '0';
+            toast.style.transform = 'translateY(-8px)';
+            setTimeout(() => toast.remove(), 300);
+        }, 3200);
+    }
+
+    function formatDateIndo(dateStr) {
+        if (!dateStr) return '-';
+        const parts = dateStr.split('-');
+        if (parts.length !== 3) return dateStr;
+        const months = ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agu', 'Sep', 'Okt', 'Nov', 'Des'];
+        const m = parseInt(parts[1], 10) - 1;
+        return `${parseInt(parts[2], 10)} ${months[m] || ''} ${parts[0]}`;
+    }
+
+    function getStatusBadgeStyle(status) {
+        switch (status) {
+            case 'Selesai':
+                return 'bg-emerald-100 text-emerald-800 border-emerald-300';
+            case 'Sementara Dikerjakan':
+                return 'bg-amber-100 text-amber-800 border-amber-300';
+            case 'Menunggu Review':
+                return 'bg-sky-100 text-sky-800 border-sky-300';
+            default:
+                return 'bg-rose-100 text-rose-800 border-rose-300';
+        }
+    }
+
+    function getStatusDotColor(status) {
+        switch (status) {
+            case 'Selesai': return 'bg-emerald-500';
+            case 'Sementara Dikerjakan': return 'bg-amber-500';
+            case 'Menunggu Review': return 'bg-sky-500';
+            default: return 'bg-rose-500';
+        }
+    }
+
+    // ============================================================================
+    // SUPABASE DATABASE SYNC (SAAT IS_PREVIEW = false)
+    // ============================================================================
+    async function loadAllSupabaseData() {
+        if (IS_PREVIEW || !supabase) return;
+        try {
+            // Check Admin Session via Supabase Auth
+            const { data: sessionData } = await supabase.auth.getSession();
+            if (sessionData?.session?.user) {
+                state.role = 'admin';
+                state.currentUser = {
+                    email: sessionData.session.user.email,
+                    name: 'Raisya (Admin)'
+                };
+            }
+
+            // 1. Load Profile Settings
+            const { data: profData } = await supabase.from('profile_settings').select('*').limit(1).maybeSingle();
+            if (profData) state.profile = profData;
+
+            // 2. Load Courses
+            const { data: crsData } = await supabase.from('courses').select('*').order('created_at', { ascending: true });
+            if (crsData) state.courses = crsData;
+
+            // 3. Load Assignments
+            const { data: asgData } = await supabase.from('assignments').select('*').order('due_date', { ascending: true });
+            if (asgData) state.assignments = asgData;
+
+            // 4. Load YouTube Videos
+            const { data: ytData } = await supabase.from('youtube_videos').select('*').order('created_at', { ascending: false });
+            if (ytData) state.youtube_videos = ytData;
+
+            // 5. Load Portfolio & Certificates
+            const { data: portData } = await supabase.from('portfolio_items').select('*').order('created_at', { ascending: false });
+            if (portData) state.portfolio_items = portData;
+
+            // 6. Load Guestbook Messages
+            const { data: msgData } = await supabase.from('guestbook_messages').select('*').order('created_at', { ascending: false });
+            if (msgData) state.guestbook_messages = msgData;
+
+            // 7. Load Reviewer Users if Admin
+            if (state.role === 'admin') {
+                const { data: revData } = await supabase.from('reviewer_users').select('*').order('created_at', { ascending: false });
+                if (revData) state.reviewer_users = revData;
+            }
+
+            renderApp();
+        } catch (err) {
+            showToast('Gagal memuat sebagian data dari Supabase', 'error');
+        }
+    }
+
+    // ============================================================================
+    // CORE RENDER ENGINE
+    // ============================================================================
+    function renderApp() {
+        // 1. Toggle Preview Banner
+        const previewBanner = document.getElementById('preview-banner');
+        if (IS_PREVIEW) {
+            previewBanner.classList.remove('hidden');
+            previewBanner.classList.add('flex');
+        } else {
+            previewBanner.classList.add('hidden');
+            previewBanner.classList.remove('flex');
+        }
+
+        // 2. Update Sidebar & Header Identity
+        const p = state.profile;
+        document.getElementById('sidebar-avatar').src = p.avatar_url || 'https://placehold.co/120x120/4f46e5/ffffff?text=R';
+        document.getElementById('mobile-header-avatar').src = p.avatar_url || 'https://placehold.co/120x120/4f46e5/ffffff?text=R';
+        document.getElementById('sidebar-name').textContent = p.full_name || 'Raisya';
+        document.getElementById('sidebar-prodi').textContent = p.program_studi || 'Universitas Widya Nusantara';
+
+        // 3. Update Floating WhatsApp Link
+        const cleanWa = (p.whatsapp_number || '6281234567890').replace(/[^0-9]/g, '');
+        const waBtn = document.getElementById('floating-wa-btn');
+        waBtn.href = `https://wa.me/${cleanWa}?text=${encodeURIComponent(`Halo ${p.full_name} (Universitas Widya Nusantara), saya mengunjungi Portofolio Digital Anda.`)}`;
+
+        // 4. Update Social Links in Sidebar & Header
+        const socialHtml = `
+            ${p.instagram_url ? `<a href="${p.instagram_url}" target="_blank" rel="noopener" class="w-8 h-8 rounded-xl bg-gradient-to-tr from-amber-500 via-pink-500 to-purple-600 text-white flex items-center justify-center hover:opacity-90 transition shadow-sm" title="Instagram"><i class="fa-brands fa-instagram text-sm"></i></a>` : ''}
+            ${p.facebook_url ? `<a href="${p.facebook_url}" target="_blank" rel="noopener" class="w-8 h-8 rounded-xl bg-blue-600 text-white flex items-center justify-center hover:bg-blue-700 transition shadow-sm" title="Facebook"><i class="fa-brands fa-facebook-f text-sm"></i></a>` : ''}
+            ${p.linkedin_url ? `<a href="${p.linkedin_url}" target="_blank" rel="noopener" class="w-8 h-8 rounded-xl bg-sky-700 text-white flex items-center justify-center hover:bg-sky-800 transition shadow-sm" title="LinkedIn"><i class="fa-brands fa-linkedin-in text-sm"></i></a>` : ''}
+            <a href="https://wa.me/${cleanWa}" target="_blank" rel="noopener" class="w-8 h-8 rounded-xl bg-emerald-500 text-white flex items-center justify-center hover:bg-emerald-600 transition shadow-sm" title="WhatsApp"><i class="fa-brands fa-whatsapp text-sm"></i></a>
+        `;
+        document.getElementById('sidebar-social-links').innerHTML = socialHtml;
+        document.getElementById('header-social-icons').innerHTML = socialHtml;
+
+        // 5. Role & Auth UI Controls
+        const roleIcon = document.getElementById('role-icon');
+        const roleLabel = document.getElementById('role-label');
+        const btnSidebarAuth = document.getElementById('btn-sidebar-auth');
+        const headerAuthBtn = document.getElementById('header-auth-btn');
+        const headerAdminEditBtn = document.getElementById('header-admin-edit-btn');
+
+        if (state.role === 'admin') {
+            roleIcon.className = 'fa-solid fa-user-shield text-emerald-600 text-xs';
+            roleLabel.textContent = 'Admin (Raisya)';
+            btnSidebarAuth.textContent = 'Logout';
+            btnSidebarAuth.onclick = () => window.app.logout();
+            headerAuthBtn.innerHTML = `<i class="fa-solid fa-power-off text-rose-300"></i><span>Logout Admin</span>`;
+            headerAuthBtn.onclick = () => window.app.logout();
+            headerAdminEditBtn.classList.remove('hidden');
+            headerAdminEditBtn.classList.add('flex');
+        } else if (state.role === 'reviewer') {
+            roleIcon.className = 'fa-solid fa-chalkboard-user text-sky-600 text-xs';
+            roleLabel.textContent = state.currentUser?.full_name || 'Dosen / Reviewer';
+            btnSidebarAuth.textContent = 'Logout';
+            btnSidebarAuth.onclick = () => window.app.logout();
+            headerAuthBtn.innerHTML = `<i class="fa-solid fa-power-off text-sky-300"></i><span>Logout Dosen</span>`;
+            headerAuthBtn.onclick = () => window.app.logout();
+            headerAdminEditBtn.classList.add('hidden');
+            headerAdminEditBtn.classList.remove('flex');
+        } else {
+            roleIcon.className = 'fa-solid fa-globe text-slate-500 text-xs';
+            roleLabel.textContent = 'Mode Pengunjung';
+            btnSidebarAuth.textContent = 'Login';
+            btnSidebarAuth.onclick = () => window.app.openAuthModal();
+            headerAuthBtn.innerHTML = `<i class="fa-solid fa-right-to-bracket"></i><span>Login Akses</span>`;
+            headerAuthBtn.onclick = () => window.app.openAuthModal();
+            headerAdminEditBtn.classList.add('hidden');
+            headerAdminEditBtn.classList.remove('flex');
+        }
+
+        // 6. Render Navigation Bars
+        renderNavigation();
+
+        // 7. Render Active View
+        const currentNav = NAV_ITEMS.find(n => n.id === state.activeTab) || NAV_ITEMS[0];
+        document.getElementById('page-title').textContent = currentNav.label;
+        document.getElementById('page-subtitle').textContent = currentNav.subtitle;
+
+        const container = document.getElementById('app-content');
+        switch (state.activeTab) {
+            case 'home':
+                container.innerHTML = renderHomeView();
+                break;
+            case 'courses':
+                container.innerHTML = renderCoursesView();
+                break;
+            case 'assignments':
+                container.innerHTML = renderAssignmentsView();
+                break;
+            case 'calendar':
+                container.innerHTML = renderCalendarView();
+                break;
+            case 'youtube':
+                container.innerHTML = renderYoutubeView();
+                break;
+            case 'portfolio':
+                container.innerHTML = renderPortfolioView();
+                break;
+            case 'guestbook':
+                container.innerHTML = renderGuestbookView();
+                break;
+        }
+    }
+
+    function renderNavigation() {
+        const pendingCount = state.assignments.filter(a => a.status !== 'Selesai').length;
+
+        // Desktop Sidebar Links
+        document.getElementById('desktop-nav-links').innerHTML = NAV_ITEMS.map(item => {
+            const active = state.activeTab === item.id;
+            return `
+                <button onclick="window.app.switchTab('${item.id}')" 
+                    class="w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-semibold transition-all ${
+                        active 
+                        ? 'bg-indigo-600 text-white shadow-md shadow-indigo-500/20' 
+                        : 'text-slate-600 hover:bg-slate-100/90 hover:text-slate-900'
+                    }">
+                    <div class="flex items-center gap-3">
+                        <i class="${item.icon} w-4 text-center text-sm ${active ? 'text-white' : 'text-indigo-500'}"></i>
+                        <span>${item.label}</span>
+                    </div>
+                    ${item.id === 'assignments' && pendingCount > 0 ? `
+                        <span class="px-2 py-0.5 text-[10px] rounded-full font-bold ${active ? 'bg-white text-indigo-700' : 'bg-amber-100 text-amber-800'}">
+                            ${pendingCount}
+                        </span>
+                    ` : ''}
+                </button>
+            `;
+        }).join('');
+
+        // Mobile Bottom Nav Links
+        document.getElementById('mobile-bottom-nav').innerHTML = NAV_ITEMS.map(item => {
+            const active = state.activeTab === item.id;
+            return `
+                <button onclick="window.app.switchTab('${item.id}')" 
+                    class="relative flex flex-col items-center justify-center py-1.5 px-2 rounded-xl transition-all ${
+                        active ? 'text-indigo-600 font-bold' : 'text-slate-500 hover:text-slate-800'
+                    }">
+                    <i class="${item.icon} text-base mb-0.5"></i>
+                    <span class="text-[10px] tracking-tight">${item.shortLabel}</span>
+                    ${active ? `<span class="w-4 h-1 bg-indigo-600 rounded-full mt-0.5"></span>` : ''}
+                    ${item.id === 'assignments' && pendingCount > 0 ? `
+                        <span class="absolute top-0.5 right-1 w-4 h-4 rounded-full bg-amber-500 text-white text-[9px] font-bold flex items-center justify-center">
+                            ${pendingCount}
+                        </span>
+                    ` : ''}
+                </button>
+            `;
+        }).join('');
+    }
+
+    // ============================================================================
+    // VIEW 1: BERANDA & PROFIL AKADEMIK (HOME)
+    // ============================================================================
+    function renderHomeView() {
+        const p = state.profile;
+        const isAdmin = state.role === 'admin';
+        const skillsArr = (p.skills || '').split(',').map(s => s.trim()).filter(Boolean);
+        const cleanWa = (p.whatsapp_number || '').replace(/[^0-9]/g, '');
+
+        const totalCourses = state.courses.length;
+        const completedTasks = state.assignments.filter(a => a.status === 'Selesai').length;
+        const inProgressTasks = state.assignments.filter(a => a.status !== 'Selesai').length;
+        const totalPortfolio = state.portfolio_items.length;
+        const totalVideos = state.youtube_videos.length;
+
+        return `
+            <!-- HERO BANNER & PROFILE CARD -->
+            <div class="glass-card rounded-3xl overflow-hidden border border-slate-200/90">
+                <!-- Cover Banner with Direct Upload Button -->
+                <div class="relative h-44 sm:h-56 bg-slate-900 overflow-hidden group">
+                    <img src="${p.banner_url}" alt="Banner Kampus UWN" onerror="this.src='https://placehold.co/1200x400/312e81/ffffff?text=Universitas+Widya+Nusantara'" class="w-full h-full object-cover opacity-90">
+                    <div class="absolute inset-0 bg-gradient-to-t from-slate-950/75 via-slate-900/20 to-transparent"></div>
+                    
+                    <div class="absolute top-4 left-4 flex items-center gap-2">
+                        <span class="px-3 py-1 rounded-full text-xs font-bold bg-white/90 text-indigo-900 backdrop-blur-md shadow-sm flex items-center gap-1.5">
+                            <i class="fa-solid fa-building-columns text-indigo-600"></i>
+                            ${p.university || 'Universitas Widya Nusantara'}
+                        </span>
+                    </div>
+
+                    ${isAdmin ? `
+                        <label class="absolute top-4 right-4 cursor-pointer px-3.5 py-2 rounded-xl bg-slate-900/80 hover:bg-indigo-600 text-white text-xs font-semibold backdrop-blur-md transition flex items-center gap-2 shadow-lg border border-white/20">
+                            <i class="fa-solid fa-camera"></i>
+                            <span>Ganti Foto Sampul</span>
+                            <input type="file" accept="image/*" class="hidden" onchange="window.app.QuickUploadBanner(event)">
+                        </label>
+                    ` : ''}
+                </div>
+
+                <!-- Profile Details Area -->
+                <div class="px-5 sm:px-8 pb-7 relative">
+                    <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4 -mt-14 sm:-mt-16 mb-5">
+                        <!-- Avatar with Direct Upload Button -->
+                        <div class="relative inline-block w-28 h-28 sm:w-32 sm:h-32 rounded-3xl ring-4 ring-white shadow-xl bg-white overflow-hidden shrink-0 group">
+                            <img src="${p.avatar_url}" alt="${p.full_name}" onerror="this.src='https://placehold.co/300x300/4f46e5/ffffff?text=Raisya'" class="w-full h-full object-cover">
+                            ${isAdmin ? `
+                                <label class="absolute inset-0 bg-slate-900/60 opacity-0 group-hover:opacity-100 transition flex flex-col items-center justify-center text-white cursor-pointer text-center p-2">
+                                    <i class="fa-solid fa-camera text-lg mb-1"></i>
+                                    <span class="text-[10px] font-bold leading-tight">Upload Foto Profil</span>
+                                    <input type="file" accept="image/*" class="hidden" onchange="window.app.QuickUploadAvatar(event)">
+                                </label>
+                            ` : ''}
+                        </div>
+
+                        <!-- Action & Social Media Buttons -->
+                        <div class="flex flex-wrap items-center gap-2">
+                            ${isAdmin ? `
+                                <label class="cursor-pointer px-3.5 py-2 rounded-xl bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-bold transition flex items-center gap-1.5 border border-indigo-200">
+                                    <i class="fa-solid fa-upload"></i> Upload Foto Profil
+                                    <input type="file" accept="image/*" class="hidden" onchange="window.app.QuickUploadAvatar(event)">
+                                </label>
+                                <button onclick="window.app.openProfileModal()" class="px-4 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold transition flex items-center gap-1.5 shadow-sm">
+                                    <i class="fa-solid fa-user-pen"></i> Edit Biodata & Sosmed
+                                </button>
+                            ` : ''}
+                            <a href="https://wa.me/${cleanWa}" target="_blank" rel="noopener" class="px-3.5 py-2 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-white text-xs font-bold transition flex items-center gap-1.5 shadow-sm">
+                                <i class="fa-brands fa-whatsapp text-sm"></i> WhatsApp
+                            </a>
+                            ${p.instagram_url ? `
+                                <a href="${p.instagram_url}" target="_blank" rel="noopener" class="px-3.5 py-2 rounded-xl bg-gradient-to-r from-pink-500 to-rose-500 hover:opacity-95 text-white text-xs font-bold transition flex items-center gap-1.5 shadow-sm">
+                                    <i class="fa-brands fa-instagram text-sm"></i> Instagram
+                                </a>
+                            ` : ''}
+                            ${p.facebook_url ? `
+                                <a href="${p.facebook_url}" target="_blank" rel="noopener" class="px-3.5 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold transition flex items-center gap-1.5 shadow-sm">
+                                    <i class="fa-brands fa-facebook text-sm"></i> Facebook
+                                </a>
+                            ` : ''}
+                            ${p.linkedin_url ? `
+                                <a href="${p.linkedin_url}" target="_blank" rel="noopener" class="px-3.5 py-2 rounded-xl bg-sky-700 hover:bg-sky-800 text-white text-xs font-bold transition flex items-center gap-1.5 shadow-sm">
+                                    <i class="fa-brands fa-linkedin text-sm"></i> LinkedIn
+                                </a>
+                            ` : ''}
+                        </div>
+                    </div>
+
+                    <!-- Identity & Bio -->
+                    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                        <div class="lg:col-span-2 space-y-3">
+                            <div>
+                                <div class="flex items-center gap-2.5 flex-wrap">
+                                    <h1 class="font-heading text-2xl sm:text-3xl font-extrabold text-slate-900">${p.full_name}</h1>
+                                    <span class="px-2.5 py-0.5 rounded-lg bg-indigo-100 text-indigo-800 text-xs font-bold">NIM: ${p.nim || '-'}</span>
+                                </div>
+                                <p class="text-sm font-semibold text-indigo-600 mt-1">${p.program_studi} • ${p.university}</p>
+                            </div>
+                            <p class="text-sm text-slate-600 leading-relaxed">${p.bio}</p>
+
+                            <!-- Skills Badges -->
+                            <div class="pt-2">
+                                <p class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Kompetensi & Keahlian Utama</p>
+                                <div class="flex flex-wrap gap-1.5">
+                                    ${skillsArr.map(skill => `
+                                        <span class="px-3 py-1 rounded-xl bg-slate-100 hover:bg-indigo-50 text-slate-700 hover:text-indigo-700 text-xs font-semibold border border-slate-200/80 transition">
+                                            ${skill}
+                                        </span>
+                                    `).join('')}
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Quick Academic Highlight Card -->
+                        <div class="bg-gradient-to-br from-indigo-50/90 via-white to-violet-50/80 rounded-2xl p-4 border border-indigo-100 flex flex-col justify-between">
+                            <div>
+                                <span class="text-[11px] font-bold uppercase tracking-wider text-indigo-600">Status Akademik</span>
+                                <h3 class="font-heading font-bold text-slate-900 text-base mt-0.5">Universitas Widya Nusantara</h3>
+                                <p class="text-xs text-slate-500 mt-1">Portofolio terintegrasi untuk pemantauan tugas kuliah, jadwal pengumpulan, video presentasi, dan dokumentasi karya.</p>
+                            </div>
+                            <div class="mt-4 pt-3 border-t border-indigo-100/80 flex items-center justify-between gap-2">
+                                <button onclick="window.app.switchTab('assignments')" class="flex-1 py-2 px-3 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold text-center transition">
+                                    Lihat Tugas Dosen
+                                </button>
+                                <button onclick="window.app.switchTab('calendar')" class="py-2 px-3 rounded-xl bg-white hover:bg-slate-50 text-slate-700 text-xs font-bold border border-slate-200 transition">
+                                    <i class="fa-solid fa-calendar-check mr-1 text-indigo-600"></i> Kalender
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ACADEMIC STATS GRID -->
+            <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3.5">
+                <div onclick="window.app.switchTab('courses')" class="glass-card p-4 rounded-2xl cursor-pointer">
+                    <div class="w-9 h-9 rounded-xl bg-indigo-100 text-indigo-600 flex items-center justify-center mb-2.5">
+                        <i class="fa-solid fa-book-bookmark"></i>
+                    </div>
+                    <p class="text-2xl font-heading font-extrabold text-slate-900">${totalCourses}</p>
+                    <p class="text-xs font-medium text-slate-500">Mata Kuliah Aktif</p>
+                </div>
+
+                <div onclick="window.app.switchTab('assignments')" class="glass-card p-4 rounded-2xl cursor-pointer">
+                    <div class="w-9 h-9 rounded-xl bg-amber-100 text-amber-600 flex items-center justify-center mb-2.5">
+                        <i class="fa-solid fa-hourglass-half"></i>
+                    </div>
+                    <p class="text-2xl font-heading font-extrabold text-slate-900">${inProgressTasks}</p>
+                    <p class="text-xs font-medium text-slate-500">Tugas Sementara / Proses</p>
+                </div>
+
+                <div onclick="window.app.switchTab('assignments')" class="glass-card p-4 rounded-2xl cursor-pointer">
+                    <div class="w-9 h-9 rounded-xl bg-emerald-100 text-emerald-600 flex items-center justify-center mb-2.5">
+                        <i class="fa-solid fa-circle-check"></i>
+                    </div>
+                    <p class="text-2xl font-heading font-extrabold text-slate-900">${completedTasks}</p>
+                    <p class="text-xs font-medium text-slate-500">Tugas Selesai Dikumpul</p>
+                </div>
+
+                <div onclick="window.app.switchTab('youtube')" class="glass-card p-4 rounded-2xl cursor-pointer">
+                    <div class="w-9 h-9 rounded-xl bg-rose-100 text-rose-600 flex items-center justify-center mb-2.5">
+                        <i class="fa-brands fa-youtube"></i>
+                    </div>
+                    <p class="text-2xl font-heading font-extrabold text-slate-900">${totalVideos}</p>
+                    <p class="text-xs font-medium text-slate-500">Video YouTube</p>
+                </div>
+
+                <div onclick="window.app.switchTab('portfolio')" class="glass-card p-4 rounded-2xl cursor-pointer col-span-2 sm:col-span-1">
+                    <div class="w-9 h-9 rounded-xl bg-violet-100 text-violet-600 flex items-center justify-center mb-2.5">
+                        <i class="fa-solid fa-award"></i>
+                    </div>
+                    <p class="text-2xl font-heading font-extrabold text-slate-900">${totalPortfolio}</p>
+                    <p class="text-xs font-medium text-slate-500">Karya & Sertifikat</p>
+                </div>
+            </div>
+
+            <!-- QUICK PREVIEW: DEADLINE TUGAS TERDEKAT & VIDEO TERBARU -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <!-- Upcoming Assignments -->
+                <div class="glass-card rounded-3xl p-5 border border-slate-200/80">
+                    <div class="flex items-center justify-between mb-4">
+                        <div>
+                            <h3 class="font-heading font-bold text-slate-900 text-base">Progres & Tugas Dosen Terdekat</h3>
+                            <p class="text-xs text-slate-500">Daftar tugas kuliah beserta batas waktu pengumpulan</p>
+                        </div>
+                        <button onclick="window.app.switchTab('assignments')" class="text-xs font-bold text-indigo-600 hover:text-indigo-800">
+                            Semua Tugas <i class="fa-solid fa-arrow-right ml-1"></i>
+                        </button>
+                    </div>
+                    <div class="space-y-3">
+                        ${state.assignments.length === 0 ? `
+                            <div class="text-center py-8 text-slate-400 text-xs">Belum ada tugas kuliah yang tercatat.</div>
+                        ` : state.assignments.slice(0, 3).map(asg => {
+                            const course = state.courses.find(c => c.id === asg.course_id);
+                            return `
+                                <div class="p-3.5 rounded-2xl bg-slate-50/90 border border-slate-200/70 flex items-center justify-between gap-3">
+                                    <div class="min-w-0">
+                                        <div class="flex items-center gap-2 mb-1">
+                                            <span class="px-2 py-0.5 rounded-md text-[10px] font-bold border ${getStatusBadgeStyle(asg.status)}">${asg.status}</span>
+                                            <span class="text-[11px] font-semibold text-indigo-600 truncate">${course ? course.course_name : 'Mata Kuliah Umum'}</span>
+                                        </div>
+                                        <h4 class="font-semibold text-slate-800 text-xs sm:text-sm truncate">${asg.title}</h4>
+                                        <p class="text-[11px] text-slate-500 mt-0.5">
+                                            <i class="fa-regular fa-calendar-check mr-1 text-rose-500"></i> Dikumpul: <strong>${formatDateIndo(asg.due_date)}</strong>
+                                        </p>
+                                    </div>
+                                    <button onclick="window.app.switchTab('assignments')" class="shrink-0 w-8 h-8 rounded-xl bg-white border border-slate-200 text-slate-600 hover:text-indigo-600 flex items-center justify-center">
+                                        <i class="fa-solid fa-chevron-right text-xs"></i>
+                                    </button>
+                                </div>
+                            `;
+                        }).join('')}
+                    </div>
+                </div>
+
+                <!-- Featured Embedded YouTube Preview -->
+                <div class="glass-card rounded-3xl p-5 border border-slate-200/80">
+                    <div class="flex items-center justify-between mb-4">
+                        <div>
+                            <h3 class="font-heading font-bold text-slate-900 text-base flex items-center gap-2">
+                                <i class="fa-brands fa-youtube text-rose-600"></i> Tayangan Video YouTube Langsung
+                            </h3>
+                            <p class="text-xs text-slate-500">Putar video presentasi & dokumentasi langsung di aplikasi</p>
+                        </div>
+                        <button onclick="window.app.switchTab('youtube')" class="text-xs font-bold text-indigo-600 hover:text-indigo-800">
+                            Ruang YouTube <i class="fa-solid fa-arrow-right ml-1"></i>
+                        </button>
+                    </div>
+                    ${state.youtube_videos.length === 0 ? `
+                        <div class="text-center py-8 text-slate-400 text-xs">Belum ada video YouTube ditambahkan.</div>
+                    ` : (() => {
+                        const firstVid = state.youtube_videos[0];
+                        const embedUrl = getYoutubeEmbedUrl(firstVid.youtube_url);
+                        return `
+                            <div class="space-y-2.5">
+                                ${embedUrl ? `
+                                    <div class="video-responsive shadow-md">
+                                        <iframe src="${embedUrl}" title="${firstVid.title}" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                                    </div>
+                                ` : ''}
+                                <h4 class="font-bold text-slate-800 text-xs sm:text-sm">${firstVid.title}</h4>
+                            </div>
+                        `;
+                    })()}
+                </div>
+            </div>
+        `;
+    }
+
+    // ============================================================================
+    // VIEW 2: MANAJEMEN MATA KULIAH (COURSES)
+    // ============================================================================
+    function renderCoursesView() {
+        const isAdmin = state.role === 'admin';
+        return `
+            <div class="glass-card rounded-3xl p-5 sm:p-6 border border-slate-200/90">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-5 border-b border-slate-200/80">
+                    <div>
+                        <h3 class="font-heading font-bold text-slate-900 text-lg">Daftar Mata Kuliah Universitas Widya Nusantara</h3>
+                        <p class="text-xs text-slate-500">Kelola mata kuliah dan dosen pengampu sebagai kategori tugas kuliah</p>
+                    </div>
+                    ${isAdmin ? `
+                        <button onclick="window.app.openCourseModal()" class="px-4 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold transition flex items-center gap-2 shadow-sm self-start sm:self-auto">
+                            <i class="fa-solid fa-plus"></i> Tambah Mata Kuliah
+                        </button>
+                    ` : ''}
+                </div>
+
+                ${state.courses.length === 0 ? `
+                    <div class="text-center py-12">
+                        <div class="w-12 h-12 rounded-2xl bg-slate-100 text-slate-400 flex items-center justify-center mx-auto mb-3">
+                            <i class="fa-solid fa-book-open text-xl"></i>
+                        </div>
+                        <p class="text-sm font-bold text-slate-700">Belum ada data Mata Kuliah</p>
+                        <p class="text-xs text-slate-500 mt-1">Silakan login sebagai Admin untuk menambahkan mata kuliah baru.</p>
+                    </div>
+                ` : `
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-5">
+                        ${state.courses.map(crs => {
+                            const taskCount = state.assignments.filter(a => a.course_id === crs.id).length;
+                            return `
+                                <div class="p-4 rounded-2xl bg-white border border-slate-200/90 hover:border-indigo-300 transition shadow-sm flex flex-col justify-between">
+                                    <div>
+                                        <div class="flex items-center justify-between gap-2 mb-2">
+                                            <span class="px-2.5 py-0.5 rounded-lg bg-indigo-50 text-indigo-700 text-[11px] font-bold border border-indigo-200/60">
+                                                ${crs.course_code || 'MK-UWN'}
+                                            </span>
+                                            <span class="text-[11px] font-semibold text-slate-500">${crs.semester || '-'} • ${crs.credits || 2} SKS</span>
+                                        </div>
+                                        <h4 class="font-heading font-bold text-slate-900 text-base">${crs.course_name}</h4>
+                                        <p class="text-xs text-slate-600 mt-1 flex items-center gap-1.5">
+                                            <i class="fa-solid fa-user-tie text-indigo-500"></i>
+                                            <span>${crs.lecturer_name || '-'}</span>
+                                        </p>
+                                    </div>
+
+                                    <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between">
+                                        <button onclick="window.app.filterAssignmentsByCourse('${crs.id}')" class="text-xs font-bold text-indigo-600 hover:text-indigo-800">
+                                            ${taskCount} Tugas Terkait <i class="fa-solid fa-arrow-right ml-1"></i>
+                                        </button>
+                                        ${isAdmin ? `
+                                            <div class="flex items-center gap-1">
+                                                <button onclick="window.app.openCourseModal('${crs.id}')" class="w-7 h-7 rounded-lg bg-slate-100 hover:bg-indigo-100 text-slate-600 hover:text-indigo-700 flex items-center justify-center text-xs" title="Edit">
+                                                    <i class="fa-solid fa-pen"></i>
+                                                </button>
+                                                <button onclick="window.app.deleteCourse('${crs.id}')" class="w-7 h-7 rounded-lg bg-slate-100 hover:bg-rose-100 text-slate-600 hover:text-rose-600 flex items-center justify-center text-xs" title="Hapus">
+                                                    <i class="fa-solid fa-trash"></i>
+                                                </button>
+                                            </div>
+                                        ` : ''}
+                                    </div>
+                                </div>
+                            `;
+                        }).join('')}
+                    </div>
+                `}
+            </div>
+        `;
+    }
+
+    // ============================================================================
+    // VIEW 3: TUGAS DOSEN & PROGRES (ASSIGNMENTS)
+    // ============================================================================
+    function renderAssignmentsView() {
+        const isAdmin = state.role === 'admin';
+        const statuses = ['ALL', 'Belum Dikerjakan', 'Sementara Dikerjakan', 'Menunggu Review', 'Selesai'];
+
+        const filtered = state.assignments.filter(a => {
+            const matchCourse = state.assignmentCourseFilter === 'ALL' || a.course_id === state.assignmentCourseFilter;
+            const matchStatus = state.assignmentStatusFilter === 'ALL' || a.status === state.assignmentStatusFilter;
+            return matchCourse && matchStatus;
+        });
+
+        return `
+            <div class="space-y-5">
+                <!-- Filter & Header Bar -->
+                <div class="glass-card rounded-3xl p-5 border border-slate-200/90 space-y-4">
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                        <div>
+                            <h3 class="font-heading font-bold text-slate-900 text-lg">Manajemen Tugas Dosen & Progres</h3>
+                            <p class="text-xs text-slate-500">Pantau status tugas (Sementara, Belum, Review, Selesai), tanggal dikumpul, foto bukti & link YouTube</p>
+                        </div>
+                        ${isAdmin ? `
+                            <button onclick="window.app.openAssignmentModal()" class="px-4 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold transition flex items-center gap-2 shadow-sm self-start sm:self-auto">
+                                <i class="fa-solid fa-plus"></i> Tambah Tugas Dosen
+                            </button>
+                        ` : ''}
+                    </div>
+
+                    <!-- Filter Controls -->
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2 border-t border-slate-100">
+                        <div>
+                            <label class="block text-[11px] font-bold text-slate-500 uppercase mb-1">Filter Mata Kuliah</label>
+                            <select onchange="window.app.setAssignmentCourseFilter(this.value)" class="w-full px-3.5 py-2 rounded-xl bg-slate-50 border border-slate-200 text-xs font-semibold text-slate-700 focus:outline-none focus:border-indigo-500">
+                                <option value="ALL" ${state.assignmentCourseFilter === 'ALL' ? 'selected' : ''}>Semua Mata Kuliah (${state.courses.length})</option>
+                                ${state.courses.map(c => `
+                                    <option value="${c.id}" ${state.assignmentCourseFilter === c.id ? 'selected' : ''}>${c.course_code} - ${c.course_name}</option>
+                                `).join('')}
+                            </select>
+                        </div>
+
+                        <div>
+                            <label class="block text-[11px] font-bold text-slate-500 uppercase mb-1">Filter Status Tugas</label>
+                            <div class="flex flex-wrap gap-1.5">
+                                ${statuses.map(st => `
+                                    <button onclick="window.app.setAssignmentStatusFilter('${st}')" 
+                                        class="px-2.5 py-1.5 rounded-xl text-[11px] font-bold transition border ${
+                                            state.assignmentStatusFilter === st 
+                                            ? 'bg-indigo-600 text-white border-indigo-600' 
+                                            : 'bg-slate-50 text-slate-600 border-slate-200 hover:bg-slate-100'
+                                        }">
+                                        ${st === 'ALL' ? 'Semua Status' : st}
+                                    </button>
+                                `).join('')}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Assignments List -->
+                ${filtered.length === 0 ? `
+                    <div class="glass-card rounded-3xl p-12 text-center">
+                        <i class="fa-solid fa-clipboard-check text-3xl text-slate-300 mb-3"></i>
+                        <p class="text-sm font-bold text-slate-700">Tidak ada tugas pada filter ini</p>
+                        <p class="text-xs text-slate-500 mt-1">Ubah filter status/mata kuliah atau tambahkan tugas baru.</p>
+                    </div>
+                ` : `
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                        ${filtered.map(asg => {
+                            const crs = state.courses.find(c => c.id === asg.course_id);
+                            const ytId = extractYoutubeId(asg.youtube_url);
+                            return `
+                                <div class="glass-card rounded-3xl overflow-hidden border border-slate-200/90 flex flex-col justify-between">
+                                    <div>
+                                        <!-- Image / Screenshot Bukti Tugas + Direct Upload -->
+                                        <div class="relative h-44 bg-slate-100 overflow-hidden group">
+                                            <img src="${asg.image_url || 'https://placehold.co/600x360/e2e8f0/475569?text=Lampiran+Tugas'}" 
+                                                 alt="${asg.title}" 
+                                                 onerror="this.src='https://placehold.co/600x360/e2e8f0/475569?text=Bukti+Tugas'"
+                                                 class="w-full h-full object-cover">
+                                            <div class="absolute top-3 left-3 flex flex-wrap gap-1.5">
+                                                <span class="px-2.5 py-1 rounded-lg text-[11px] font-bold border shadow-sm backdrop-blur-md ${getStatusBadgeStyle(asg.status)}">
+                                                    ${asg.status}
+                                                </span>
+                                                <span class="px-2.5 py-1 rounded-lg text-[11px] font-bold bg-slate-900/80 text-white backdrop-blur-md">
+                                                    ${asg.category || 'Tugas'}
+                                                </span>
+                                            </div>
+
+                                            ${isAdmin ? `
+                                                <label class="absolute bottom-3 right-3 cursor-pointer px-3 py-1.5 rounded-xl bg-slate-900/80 hover:bg-indigo-600 text-white text-[11px] font-bold backdrop-blur-md transition flex items-center gap-1.5 shadow">
+                                                    <i class="fa-solid fa-camera"></i> Ganti Foto Tugas
+                                                    <input type="file" accept="image/*" class="hidden" onchange="window.app.QuickUploadAssignmentImage(event, '${asg.id}')">
+                                                </label>
+                                            ` : ''}
+                                        </div>
+
+                                        <!-- Content -->
+                                        <div class="p-5 space-y-3">
+                                            <div>
+                                                <p class="text-xs font-bold text-indigo-600">
+                                                    <i class="fa-solid fa-book mr-1"></i> ${crs ? `${crs.course_code} - ${crs.course_name}` : 'Mata Kuliah Umum'}
+                                                </p>
+                                                ${crs?.lecturer_name ? `<p class="text-[11px] text-slate-500">Dosen: ${crs.lecturer_name}</p>` : ''}
+                                                <h4 class="font-heading font-bold text-slate-900 text-base mt-1">${asg.title}</h4>
+                                            </div>
+
+                                            <p class="text-xs text-slate-600 leading-relaxed">${asg.description || '-'}</p>
+
+                                            <!-- Dates Box -->
+                                            <div class="grid grid-cols-2 gap-2 p-3 rounded-2xl bg-slate-50 border border-slate-200/70 text-xs">
+                                                <div>
+                                                    <span class="block text-[10px] font-bold text-slate-400 uppercase">Tanggal Diberikan</span>
+                                                    <span class="font-semibold text-slate-700">${formatDateIndo(asg.assigned_date)}</span>
+                                                </div>
+                                                <div>
+                                                    <span class="block text-[10px] font-bold text-rose-500 uppercase">Batas Dikumpul</span>
+                                                    <span class="font-bold text-rose-600">${formatDateIndo(asg.due_date)}</span>
+                                                </div>
+                                            </div>
+
+                                            <!-- Embedded YouTube if available -->
+                                            ${ytId ? `
+                                                <div class="pt-1">
+                                                    <p class="text-[11px] font-bold text-slate-500 mb-1.5 flex items-center gap-1">
+                                                        <i class="fa-brands fa-youtube text-rose-600"></i> Video Presentasi / Dokumentasi Tugas:
+                                                    </p>
+                                                    <div class="video-responsive">
+                                                        <iframe src="https://www.youtube.com/embed/${ytId}?rel=0" allowfullscreen></iframe>
+                                                    </div>
+                                                </div>
+                                            ` : ''}
+                                        </div>
+                                    </div>
+
+                                    <!-- Card Footer Actions -->
+                                    <div class="px-5 py-3.5 bg-slate-50/80 border-t border-slate-200/70 flex flex-wrap items-center justify-between gap-2">
+                                        <div class="flex items-center gap-2">
+                                            ${asg.attachment_link ? `
+                                                <a href="${asg.attachment_link}" target="_blank" rel="noopener" class="px-3 py-1.5 rounded-xl bg-white hover:bg-indigo-50 text-indigo-600 border border-slate-200 text-xs font-bold transition flex items-center gap-1.5">
+                                                    <i class="fa-solid fa-link"></i> Buka Lampiran
+                                                </a>
+                                            ` : `<span class="text-[11px] text-slate-400">Tanpa tautan eksternal</span>`}
+                                        </div>
+
+                                        ${isAdmin ? `
+                                            <div class="flex items-center gap-1.5">
+                                                <select onchange="window.app.quickChangeAssignmentStatus('${asg.id}', this.value)" class="px-2.5 py-1.5 rounded-xl bg-white border border-slate-200 text-[11px] font-bold text-slate-700">
+                                                    <option value="Belum Dikerjakan" ${asg.status === 'Belum Dikerjakan' ? 'selected' : ''}>Belum Dikerjakan</option>
+                                                    <option value="Sementara Dikerjakan" ${asg.status === 'Sementara Dikerjakan' ? 'selected' : ''}>Sementara</option>
+                                                    <option value="Menunggu Review" ${asg.status === 'Menunggu Review' ? 'selected' : ''}>Review</option>
+                                                    <option value="Selesai" ${asg.status === 'Selesai' ? 'selected' : ''}>Selesai</option>
+                                                </select>
+                                                <button onclick="window.app.openAssignmentModal('${asg.id}')" class="w-8 h-8 rounded-xl bg-white hover:bg-indigo-50 text-slate-600 hover:text-indigo-600 border border-slate-200 flex items-center justify-center text-xs" title="Edit Tugas">
+                                                    <i class="fa-solid fa-pen"></i>
+                                                </button>
+                                                <button onclick="window.app.deleteAssignment('${asg.id}')" class="w-8 h-8 rounded-xl bg-white hover:bg-rose-50 text-slate-600 hover:text-rose-600 border border-slate-200 flex items-center justify-center text-xs" title="Hapus Tugas">
+                                                    <i class="fa-solid fa-trash"></i>
+                                                </button>
+                                            </div>
+                                        ` : ''}
+                                    </div>
+                                </div>
+                            `;
+                        }).join('')}
+                    </div>
+                `}
+            </div>
+        `;
+    }
+
+    // ============================================================================
+    // VIEW 4: KALENDER AKADEMIK & DEADLINE TUGAS (CALENDAR)
+    // ============================================================================
+    function renderCalendarView() {
+        const year = state.calendarYear;
+        const month = state.calendarMonth;
+        const monthNames = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
+
+        const firstDayOfMonth = new Date(year, month, 1).getDay(); // 0 = Sun
+        const daysInMonth = new Date(year, month + 1, 0).getDate();
+
+        const dayCells = [];
+        for (let i = 0; i < firstDayOfMonth; i++) {
+            dayCells.push(null);
+        }
+        for (let d = 1; d <= daysInMonth; d++) {
+            const dateStr = `${year}-${String(month + 1).padStart(2, '0')}-${String(d).padStart(2, '0')}`;
+            const tasksOnDay = state.assignments.filter(a => a.due_date === dateStr);
+            dayCells.push({ day: d, dateStr, tasks: tasksOnDay });
+        }
+
+        const selectedTasks = state.assignments.filter(a => a.due_date === state.selectedCalendarDate);
+
+        return `
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                <!-- Monthly Calendar Grid -->
+                <div class="lg:col-span-2 glass-card rounded-3xl p-5 sm:p-6 border border-slate-200/90">
+                    <div class="flex items-center justify-between mb-5">
+                        <div>
+                            <h3 class="font-heading font-bold text-slate-900 text-lg">${monthNames[month]} ${year}</h3>
+                            <p class="text-xs text-slate-500">Klik tanggal untuk melihat detail jadwal pengumpulan tugas</p>
+                        </div>
+                        <div class="flex items-center gap-1.5">
+                            <button onclick="window.app.changeCalendarMonth(-1)" class="w-9 h-9 rounded-xl bg-slate-100 hover:bg-indigo-100 text-slate-700 hover:text-indigo-700 flex items-center justify-center transition">
+                                <i class="fa-solid fa-chevron-left text-xs"></i>
+                            </button>
+                            <button onclick="window.app.resetCalendarToday()" class="px-3 py-2 rounded-xl bg-slate-100 hover:bg-indigo-100 text-slate-700 hover:text-indigo-700 text-xs font-bold transition">
+                                Hari Ini
+                            </button>
+                            <button onclick="window.app.changeCalendarMonth(1)" class="w-9 h-9 rounded-xl bg-slate-100 hover:bg-indigo-100 text-slate-700 hover:text-indigo-700 flex items-center justify-center transition">
+                                <i class="fa-solid fa-chevron-right text-xs"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Days Header -->
+                    <div class="grid grid-cols-7 gap-1.5 text-center mb-2">
+                        ${['Min', 'Sen', 'Sel', 'Rab', 'Kam', 'Jum', 'Sab'].map(d => `
+                            <div class="text-[11px] font-bold text-slate-400 uppercase py-1">${d}</div>
+                        `).join('')}
+                    </div>
+
+                    <!-- Calendar Cells -->
+                    <div class="grid grid-cols-7 gap-1.5">
+                        ${dayCells.map(cell => {
+                            if (!cell) return `<div class="h-16 sm:h-20 rounded-2xl bg-slate-50/40"></div>`;
+                            const isSelected = cell.dateStr === state.selectedCalendarDate;
+                            const isToday = cell.dateStr === todayStr;
+                            return `
+                                <button onclick="window.app.selectCalendarDate('${cell.dateStr}')" 
+                                    class="h-16 sm:h-20 p-1.5 sm:p-2 rounded-2xl border text-left flex flex-col justify-between transition relative ${
+                                        isSelected 
+                                        ? 'bg-indigo-600 text-white border-indigo-600 shadow-md' 
+                                        : isToday 
+                                            ? 'bg-indigo-50/90 text-indigo-900 border-indigo-300 font-bold' 
+                                            : 'bg-white hover:bg-slate-50 text-slate-700 border-slate-200/80'
+                                    }">
+                                    <div class="flex items-center justify-between w-full">
+                                        <span class="text-xs font-bold">${cell.day}</span>
+                                        ${cell.tasks.length > 0 ? `
+                                            <span class="px-1.5 py-0.2 rounded-full text-[9px] font-extrabold ${isSelected ? 'bg-white text-indigo-700' : 'bg-rose-100 text-rose-700'}">
+                                                ${cell.tasks.length}
+                                            </span>
+                                        ` : ''}
+                                    </div>
+
+                                    <!-- Dots / Mini Task Labels -->
+                                    <div class="w-full space-y-0.5 overflow-hidden">
+                                        ${cell.tasks.slice(0, 2).map(t => `
+                                            <div class="flex items-center gap-1 truncate">
+                                                <span class="w-1.5 h-1.5 rounded-full shrink-0 ${isSelected ? 'bg-amber-300' : getStatusDotColor(t.status)}"></span>
+                                                <span class="text-[9px] truncate ${isSelected ? 'text-indigo-100' : 'text-slate-600'}">${t.title}</span>
+                                            </div>
+                                        `).join('')}
+                                    </div>
+                                </button>
+                            `;
+                        }).join('')}
+                    </div>
+
+                    <!-- Status Legend -->
+                    <div class="mt-5 pt-4 border-t border-slate-200/70 flex flex-wrap items-center gap-4 text-xs text-slate-600">
+                        <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-amber-500"></span> Sementara Dikerjakan</span>
+                        <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-rose-500"></span> Belum Dikerjakan</span>
+                        <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-sky-500"></span> Menunggu Review</span>
+                        <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-emerald-500"></span> Selesai</span>
+                    </div>
+                </div>
+
+                <!-- Selected Date Tasks Panel -->
+                <div class="glass-card rounded-3xl p-5 sm:p-6 border border-slate-200/90 flex flex-col justify-between">
+                    <div>
+                        <div class="pb-4 border-b border-slate-200/80">
+                            <span class="text-[11px] font-bold uppercase tracking-wider text-indigo-600">Jadwal Pengumpulan Tugas</span>
+                            <h4 class="font-heading font-bold text-slate-900 text-lg mt-0.5">${formatDateIndo(state.selectedCalendarDate)}</h4>
+                        </div>
+
+                        <div class="mt-4 space-y-3">
+                            ${selectedTasks.length === 0 ? `
+                                <div class="text-center py-10">
+                                    <i class="fa-regular fa-calendar-check text-3xl text-slate-300 mb-2"></i>
+                                    <p class="text-xs font-semibold text-slate-600">Tidak ada deadline tugas pada tanggal ini.</p>
+                                </div>
+                            ` : selectedTasks.map(t => {
+                                const crs = state.courses.find(c => c.id === t.course_id);
+                                return `
+                                    <div class="p-3.5 rounded-2xl bg-slate-50 border border-slate-200/80 space-y-2">
+                                        <div class="flex items-center justify-between gap-2">
+                                            <span class="px-2 py-0.5 rounded-md text-[10px] font-bold border ${getStatusBadgeStyle(t.status)}">${t.status}</span>
+                                            <span class="text-[10px] font-bold text-slate-400">${t.category}</span>
+                                        </div>
+                                        <h5 class="font-bold text-slate-800 text-xs sm:text-sm">${t.title}</h5>
+                                        <p class="text-[11px] text-indigo-600 font-semibold">${crs ? crs.course_name : 'Mata Kuliah Umum'}</p>
+                                        <p class="text-xs text-slate-500">${t.description || ''}</p>
+                                    </div>
+                                `;
+                            }).join('')}
+                        </div>
+                    </div>
+
+                    ${state.role === 'admin' ? `
+                        <button onclick="window.app.openAssignmentModalWithDate('${state.selectedCalendarDate}')" class="mt-6 w-full py-2.5 px-4 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold transition flex items-center justify-center gap-2 shadow-sm">
+                            <i class="fa-solid fa-plus"></i> Tambah Tugas di Tanggal Ini
+                        </button>
+                    ` : ''}
+                </div>
+            </div>
+        `;
+    }
+
+    // ============================================================================
+    // VIEW 5: RUANG VIDEO YOUTUBE (LIVE EMBED PLAYER)
+    // ============================================================================
+    function renderYoutubeView() {
+        const isAdmin = state.role === 'admin';
+        const videos = state.youtube_videos;
+        const activeVideo = videos.find(v => v.id === state.activeYoutubeVideoId) || videos[0] || null;
+        const activeEmbedUrl = activeVideo ? getYoutubeEmbedUrl(activeVideo.youtube_url) : null;
+
+        return `
+            <div class="space-y-6">
+                <!-- Header Bar -->
+                <div class="glass-card rounded-3xl p-5 border border-slate-200/90 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                    <div>
+                        <h3 class="font-heading font-bold text-slate-900 text-lg flex items-center gap-2">
+                            <i class="fa-brands fa-youtube text-rose-600 text-xl"></i>
+                            Ruang Video YouTube Raisya - UWN
+                        </h3>
+                        <p class="text-xs text-slate-500">Tonton video presentasi tugas, praktikum, dan dokumentasi langsung di dalam aplikasi</p>
+                    </div>
+                    ${isAdmin ? `
+                        <button onclick="window.app.openYoutubeModal()" class="px-4 py-2.5 rounded-xl bg-rose-600 hover:bg-rose-700 text-white text-xs font-bold transition flex items-center gap-2 shadow-sm self-start sm:self-auto">
+                            <i class="fa-solid fa-plus"></i> Tambah Link YouTube
+                        </button>
+                    ` : ''}
+                </div>
+
+                ${videos.length === 0 ? `
+                    <div class="glass-card rounded-3xl p-12 text-center">
+                        <i class="fa-brands fa-youtube text-4xl text-rose-300 mb-3"></i>
+                        <p class="text-sm font-bold text-slate-700">Belum ada Video YouTube</p>
+                        <p class="text-xs text-slate-500 mt-1">Tambahkan link YouTube untuk menampilkan pemutar video langsung di halaman ini.</p>
+                    </div>
+                ` : `
+                    <!-- MAIN FEATURED YOUTUBE PLAYER -->
+                    ${activeVideo ? `
+                        <div class="glass-card rounded-3xl p-5 sm:p-6 border border-slate-200/90 space-y-4">
+                            <div class="flex items-center justify-between gap-2 flex-wrap">
+                                <span class="px-3 py-1 rounded-full bg-rose-100 text-rose-700 text-xs font-bold flex items-center gap-1.5">
+                                    <span class="w-2 h-2 rounded-full bg-rose-600 animate-ping"></span> Sedang Diputar di Aplikasi
+                                </span>
+                                <span class="text-xs font-semibold text-indigo-600">${activeVideo.category || 'Dokumentasi Akademik'}</span>
+                            </div>
+
+                            ${activeEmbedUrl ? `
+                                <div class="video-responsive shadow-xl">
+                                    <iframe src="${activeEmbedUrl}" title="${activeVideo.title}" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                                </div>
+                            ` : `
+                                <div class="p-8 rounded-2xl bg-slate-900 text-white text-center text-xs">Format URL YouTube tidak valid.</div>
+                            `}
+
+                            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pt-2">
+                                <div>
+                                    <h4 class="font-heading font-bold text-slate-900 text-base sm:text-lg">${activeVideo.title}</h4>
+                                    <p class="text-xs text-slate-600 mt-1">${activeVideo.description || ''}</p>
+                                </div>
+                                <a href="${activeVideo.youtube_url}" target="_blank" rel="noopener" class="shrink-0 px-3.5 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold transition flex items-center gap-1.5 self-start">
+                                    <i class="fa-solid fa-up-right-from-square"></i> Buka di YouTube
+                                </a>
+                            </div>
+                        </div>
+                    ` : ''}
+
+                    <!-- PLAYLIST GALLERY GRID -->
+                    <div>
+                        <h4 class="font-heading font-bold text-slate-800 text-sm mb-3">Daftar Koleksi Video (${videos.length})</h4>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                            ${videos.map(v => {
+                                const isPlaying = activeVideo && activeVideo.id === v.id;
+                                return `
+                                    <div class="glass-card rounded-2xl overflow-hidden border ${isPlaying ? 'border-rose-500 ring-2 ring-rose-500/20' : 'border-slate-200/80'} flex flex-col justify-between">
+                                        <div>
+                                            <div onclick="window.app.playYoutubeVideo('${v.id}')" class="relative h-40 bg-slate-900 cursor-pointer group overflow-hidden">
+                                                <img src="${getYoutubeThumbnail(v.youtube_url)}" alt="${v.title}" class="w-full h-full object-cover group-hover:scale-105 transition duration-300 opacity-90">
+                                                <div class="absolute inset-0 bg-slate-950/30 flex items-center justify-center">
+                                                    <div class="w-12 h-12 rounded-full bg-rose-600 text-white flex items-center justify-center shadow-lg group-hover:scale-110 transition">
+                                                        <i class="fa-solid fa-play ml-0.5"></i>
+                                                    </div>
+                                                </div>
+                                                <span class="absolute top-2.5 left-2.5 px-2.5 py-0.5 rounded-lg bg-slate-900/80 text-white text-[10px] font-bold">
+                                                    ${v.category || 'Video'}
+                                                </span>
+                                            </div>
+                                            <div class="p-4">
+                                                <h5 onclick="window.app.playYoutubeVideo('${v.id}')" class="font-bold text-slate-900 text-xs sm:text-sm cursor-pointer hover:text-rose-600 line-clamp-2">${v.title}</h5>
+                                                <p class="text-[11px] text-slate-500 mt-1 line-clamp-2">${v.description || ''}</p>
+                                            </div>
+                                        </div>
+
+                                        <div class="px-4 py-2.5 bg-slate-50 border-t border-slate-100 flex items-center justify-between">
+                                            <button onclick="window.app.playYoutubeVideo('${v.id}')" class="text-xs font-bold ${isPlaying ? 'text-rose-600' : 'text-indigo-600 hover:text-indigo-800'}">
+                                                ${isPlaying ? '● Sedang Diputar' : 'Putar Sekarang'}
+                                            </button>
+                                            ${isAdmin ? `
+                                                <div class="flex items-center gap-1">
+                                                    <button onclick="window.app.openYoutubeModal('${v.id}')" class="w-7 h-7 rounded-lg bg-white hover:bg-indigo-50 text-slate-600 hover:text-indigo-600 border border-slate-200 flex items-center justify-center text-xs">
+                                                        <i class="fa-solid fa-pen"></i>
+                                                    </button>
+                                                    <button onclick="window.app.deleteYoutubeVideo('${v.id}')" class="w-7 h-7 rounded-lg bg-white hover:bg-rose-50 text-slate-600 hover:text-rose-600 border border-slate-200 flex items-center justify-center text-xs">
+                                                        <i class="fa-solid fa-trash"></i>
+                                                    </button>
+                                                </div>
+                                            ` : ''}
+                                        </div>
+                                    </div>
+                                `;
+                            }).join('')}
+                        </div>
+                    </div>
+                `}
+            </div>
+        `;
+    }
+
+    // ============================================================================
+    // VIEW 6: KARYA & SERTIFIKAT (PORTFOLIO & CERTIFICATES)
+    // ============================================================================
+    function renderPortfolioView() {
+        const isAdmin = state.role === 'admin';
+        const filtered = state.portfolio_items.filter(item => {
+            if (state.portfolioTypeFilter === 'ALL') return true;
+            return item.item_type === state.portfolioTypeFilter;
+        });
+
+        return `
+            <div class="space-y-5">
+                <div class="glass-card rounded-3xl p-5 border border-slate-200/90 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                    <div>
+                        <h3 class="font-heading font-bold text-slate-900 text-lg">Galeri Karya, Proyek & Sertifikat</h3>
+                        <p class="text-xs text-slate-500">Dokumentasi portofolio akademik dan sertifikat pencapaian (Semua foto dapat di-upload/diganti)</p>
+                    </div>
+                    <div class="flex flex-wrap items-center gap-2">
+                        <div class="flex bg-slate-100 p-1 rounded-xl">
+                            ${['ALL', 'Proyek', 'Sertifikat'].map(t => `
+                                <button onclick="window.app.setPortfolioFilter('${t}')" 
+                                    class="px-3 py-1.5 rounded-lg text-xs font-bold transition ${
+                                        state.portfolioTypeFilter === t ? 'bg-white text-indigo-700 shadow-sm' : 'text-slate-600'
+                                    }">
+                                    ${t === 'ALL' ? 'Semua' : t}
+                                </button>
+                            `).join('')}
+                        </div>
+                        ${isAdmin ? `
+                            <button onclick="window.app.openPortfolioModal()" class="px-4 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold transition flex items-center gap-1.5 shadow-sm">
+                                <i class="fa-solid fa-plus"></i> Tambah Karya / Sertifikat
+                            </button>
+                        ` : ''}
+                    </div>
+                </div>
+
+                ${filtered.length === 0 ? `
+                    <div class="glass-card rounded-3xl p-12 text-center">
+                        <i class="fa-solid fa-award text-3xl text-slate-300 mb-3"></i>
+                        <p class="text-sm font-bold text-slate-700">Belum ada item portofolio atau sertifikat</p>
+                    </div>
+                ` : `
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+                        ${filtered.map(item => `
+                            <div class="glass-card rounded-3xl overflow-hidden border border-slate-200/90 flex flex-col justify-between">
+                                <div>
+                                    <div class="relative h-48 bg-slate-100 overflow-hidden group">
+                                        <img src="${item.image_url || 'https://placehold.co/600x400/e0e7ff/4338ca?text=Portofolio+Raisya'}" 
+                                             alt="${item.title}"
+                                             onerror="this.src='https://placehold.co/600x400/e0e7ff/4338ca?text=Portofolio+UWN'"
+                                             class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
+                                        <div class="absolute top-3 left-3 flex gap-1.5">
+                                            <span class="px-2.5 py-1 rounded-lg text-[10px] font-bold uppercase tracking-wider ${
+                                                item.item_type === 'Sertifikat' ? 'bg-amber-400 text-slate-950' : 'bg-indigo-600 text-white'
+                                            } shadow">
+                                                ${item.item_type}
+                                            </span>
+                                            <span class="px-2.5 py-1 rounded-lg text-[10px] font-bold bg-white/90 text-slate-800 backdrop-blur-md">
+                                                ${item.date_achieved || '2025'}
+                                            </span>
+                                        </div>
+
+                                        ${isAdmin ? `
+                                            <label class="absolute bottom-3 right-3 cursor-pointer px-3 py-1.5 rounded-xl bg-slate-900/80 hover:bg-indigo-600 text-white text-[11px] font-bold backdrop-blur-md transition flex items-center gap-1.5 shadow">
+                                                <i class="fa-solid fa-camera"></i> Ganti Foto
+                                                <input type="file" accept="image/*" class="hidden" onchange="window.app.QuickUploadPortfolioImage(event, '${item.id}')">
+                                            </label>
+                                        ` : ''}
+                                    </div>
+
+                                    <div class="p-5 space-y-2">
+                                        <p class="text-[11px] font-bold text-indigo-600">${item.category || 'Akademik'} • ${item.issuer_or_client || 'UWN'}</p>
+                                        <h4 class="font-heading font-bold text-slate-900 text-base">${item.title}</h4>
+                                        <p class="text-xs text-slate-600 leading-relaxed">${item.description || ''}</p>
+                                    </div>
+                                </div>
+
+                                <div class="px-5 py-3.5 bg-slate-50 border-t border-slate-100 flex items-center justify-between">
+                                    ${item.external_link && item.external_link !== '#' ? `
+                                        <a href="${item.external_link}" target="_blank" rel="noopener" class="text-xs font-bold text-indigo-600 hover:text-indigo-800 flex items-center gap-1">
+                                            Lihat Detail <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+                                        </a>
+                                    ` : `<span class="text-[11px] text-slate-400">Dokumentasi Terverifikasi</span>`}
+
+                                    ${isAdmin ? `
+                                        <div class="flex items-center gap-1">
+                                            <button onclick="window.app.openPortfolioModal('${item.id}')" class="w-8 h-8 rounded-xl bg-white hover:bg-indigo-50 text-slate-600 hover:text-indigo-600 border border-slate-200 flex items-center justify-center text-xs">
+                                                <i class="fa-solid fa-pen"></i>
+                                            </button>
+                                            <button onclick="window.app.deletePortfolioItem('${item.id}')" class="w-8 h-8 rounded-xl bg-white hover:bg-rose-50 text-slate-600 hover:text-rose-600 border border-slate-200 flex items-center justify-center text-xs">
+                                                <i class="fa-solid fa-trash"></i>
+                                            </button>
+                                        </div>
+                                    ` : ''}
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>
+                `}
+            </div>
+        `;
+    }
+
+    // ============================================================================
+    // VIEW 7: RUANG DOSEN & BUKU TAMU (GUESTBOOK & REVIEWER ACCESS)
+    // ============================================================================
+    function renderGuestbookView() {
+        const isAdmin = state.role === 'admin';
+        const isReviewer = state.role === 'reviewer';
+
+        return `
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                <!-- Left Column: Form & Reviewer Management -->
+                <div class="space-y-6">
+                    <div class="glass-card rounded-3xl p-5 sm:p-6 border border-slate-200/90">
+                        <h3 class="font-heading font-bold text-slate-900 text-base mb-1">Kirim Evaluasi Dosen / Pesan</h3>
+                        <p class="text-xs text-slate-500 mb-4">Tinggalkan masukan, catatan tugas, atau pesan kolaborasi untuk Raisya.</p>
+
+                        <form onsubmit="window.app.submitGuestbook(event)" class="space-y-3">
+                            <div>
+                                <label class="block text-xs font-bold text-slate-700 mb-1">Nama Lengkap & Gelar</label>
+                                <input type="text" id="gb-name" required 
+                                    value="${isReviewer ? (state.currentUser?.full_name || '') : ''}"
+                                    placeholder="Contoh: Dr. Hendra Wijaya, M.Kes"
+                                    class="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-xs font-medium focus:outline-none focus:border-indigo-500">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-slate-700 mb-1">Peran / Jabatan</label>
+                                <input type="text" id="gb-role" required 
+                                    value="${isReviewer ? `${state.currentUser?.role_title || 'Dosen UWN'} (Terverifikasi)` : ''}"
+                                    placeholder="Dosen Universitas Widya Nusantara / Rekruter / Rekan"
+                                    class="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-xs font-medium focus:outline-none focus:border-indigo-500">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-slate-700 mb-1">Isi Catatan / Evaluasi</label>
+                                <textarea id="gb-message" rows="3" required placeholder="Tuliskan evaluasi tugas atau pesan..."
+                                    class="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-xs font-medium focus:outline-none focus:border-indigo-500"></textarea>
+                            </div>
+                            <button type="submit" class="w-full py-2.5 px-4 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold transition shadow-sm">
+                                <i class="fa-solid fa-paper-plane mr-1.5"></i> Kirim Catatan
+                            </button>
+                        </form>
+                    </div>
+
+                    <!-- Admin Panel: Manage Reviewer / Lecturer Accounts -->
+                    ${isAdmin ? `
+                        <div class="glass-card rounded-3xl p-5 border border-indigo-200 bg-indigo-50/40 space-y-4">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <span class="text-[10px] font-bold uppercase text-indigo-600">Khusus Admin</span>
+                                    <h4 class="font-heading font-bold text-slate-900 text-sm">Akun Login Dosen / Reviewer</h4>
+                                </div>
+                                <button onclick="window.app.openReviewerModal()" class="px-3 py-1.5 rounded-xl bg-indigo-600 text-white text-[11px] font-bold">
+                                    + Buat Akun
+                                </button>
+                            </div>
+                            <div class="space-y-2">
+                                ${state.reviewer_users.map(u => `
+                                    <div class="p-3 rounded-xl bg-white border border-slate-200 flex items-center justify-between text-xs">
+                                        <div>
+                                            <p class="font-bold text-slate-800">${u.full_name}</p>
+                                            <p class="text-[11px] text-slate-500">User: <code class="text-indigo-600 font-bold">${u.username}</code> • Pass: <code>${u.password}</code></p>
+                                        </div>
+                                        <button onclick="window.app.deleteReviewer('${u.id}')" class="text-rose-500 hover:text-rose-700 p-1">
+                                            <i class="fa-solid fa-trash"></i>
+                                        </button>
+                                    </div>
+                                `).join('')}
+                            </div>
+                        </div>
+                    ` : ''}
+                </div>
+
+                <!-- Right Column: Messages List -->
+                <div class="lg:col-span-2 glass-card rounded-3xl p-5 sm:p-6 border border-slate-200/90 space-y-4">
+                    <h3 class="font-heading font-bold text-slate-900 text-base">Daftar Catatan Dosen & Buku Tamu (${state.guestbook_messages.length})</h3>
+                    
+                    ${state.guestbook_messages.length === 0 ? `
+                        <div class="text-center py-12 text-slate-400 text-xs">Belum ada pesan atau catatan evaluasi.</div>
+                    ` : `
+                        <div class="space-y-4">
+                            ${state.guestbook_messages.map(msg => `
+                                <div class="p-4 rounded-2xl bg-slate-50/90 border border-slate-200/80 space-y-3">
+                                    <div class="flex items-start justify-between gap-2">
+                                        <div class="flex items-center gap-2.5">
+                                            <div class="w-9 h-9 rounded-xl bg-indigo-100 text-indigo-700 font-bold flex items-center justify-center text-sm">
+                                                ${(msg.sender_name || 'U')[0].toUpperCase()}
+                                            </div>
+                                            <div>
+                                                <h5 class="font-bold text-slate-900 text-xs sm:text-sm">${msg.sender_name}</h5>
+                                                <span class="text-[11px] font-semibold text-indigo-600">${msg.sender_role || 'Pengunjung'}</span>
+                                            </div>
+                                        </div>
+                                        ${isAdmin ? `
+                                            <div class="flex items-center gap-1">
+                                                <button onclick="window.app.openReplyModal('${msg.id}')" class="px-2.5 py-1 rounded-lg bg-white border border-slate-200 text-[11px] font-bold text-indigo-600">
+                                                    Balas
+                                                </button>
+                                                <button onclick="window.app.deleteGuestbook('${msg.id}')" class="px-2 py-1 rounded-lg bg-white border border-slate-200 text-[11px] text-rose-600">
+                                                    <i class="fa-solid fa-trash"></i>
+                                                </button>
+                                            </div>
+                                        ` : ''}
+                                    </div>
+                                    <p class="text-xs text-slate-700 leading-relaxed">${msg.message}</p>
+                                    ${msg.admin_reply ? `
+                                        <div class="p-3 rounded-xl bg-indigo-50/80 border border-indigo-100 text-xs">
+                                            <p class="font-bold text-indigo-900 mb-0.5"><i class="fa-solid fa-reply mr-1"></i> Balasan Raisya:</p>
+                                            <p class="text-indigo-800">${msg.admin_reply}</p>
+                                        </div>
+                                    ` : ''}
+                                </div>
+                            `).join('')}
+                        </div>
+                    `}
+                </div>
+            </div>
+        `;
+    }
+
+    // ============================================================================
+    // MODAL HANDLERS & CRUD OPERATIONS
+    // ============================================================================
+    function openModal(htmlContent) {
+        const backdrop = document.getElementById('modal-backdrop');
+        const box = document.getElementById('modal-box');
+        box.innerHTML = htmlContent;
+        backdrop.classList.remove('hidden');
+        backdrop.classList.add('flex');
+    }
+
+    function closeModal() {
+        const backdrop = document.getElementById('modal-backdrop');
+        backdrop.classList.add('hidden');
+        backdrop.classList.remove('flex');
+    }
+
+    // Expose all interactive actions to window.app
+    window.app = {
+        switchTab(tabId) {
+            state.activeTab = tabId;
+            renderApp();
+        },
+
+        closeModal,
+
+        // Quick Login for Preview Mode
+        quickLogin(roleType) {
+            if (!IS_PREVIEW) return;
+            if (roleType === 'admin') {
+                state.role = 'admin';
+                state.currentUser = { name: 'Raisya (Admin UWN)' };
+                showToast('Login Cepat sebagai Admin (Raisya) aktif');
+            } else if (roleType === 'reviewer') {
+                state.role = 'reviewer';
+                state.currentUser = state.reviewer_users[0] || { full_name: 'Dr. Hendra Wijaya, M.Kes', role_title: 'Dosen Pembimbing UWN' };
+                showToast('Login Cepat sebagai Dosen / Reviewer aktif');
+            } else {
+                state.role = 'public';
+                state.currentUser = null;
+                showToast('Beralih ke tampilan Pengunjung Publik', 'info');
+            }
+            renderApp();
+        },
+
+        // Hybrid Authentication Modal
+        openAuthModal() {
+            openModal(`
+                <div class="flex items-center justify-between pb-3 border-b border-slate-100">
+                    <h3 class="font-heading font-bold text-slate-900 text-lg">Login Sistem Portofolio Raisya UWN</h3>
+                    <button onclick="window.app.closeModal()" class="w-8 h-8 rounded-xl bg-slate-100 text-slate-500 hover:text-slate-800 flex items-center justify-center">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                </div>
+
+                <div class="mt-4 space-y-5">
+                    <!-- Tab Switcher Admin vs Dosen -->
+                    <div class="grid grid-cols-2 gap-2 p-1 bg-slate-100 rounded-2xl">
+                        <button id="tab-btn-admin" onclick="window.app.toggleAuthForm('admin')" class="py-2 rounded-xl text-xs font-bold bg-white text-indigo-700 shadow-sm">
+                            <i class="fa-solid fa-user-shield mr-1"></i> Admin (Raisya)
+                        </button>
+                        <button id="tab-btn-reviewer" onclick="window.app.toggleAuthForm('reviewer')" class="py-2 rounded-xl text-xs font-bold text-slate-600">
+                            <i class="fa-solid fa-chalkboard-user mr-1"></i> Dosen / Reviewer
+                        </button>
+                    </div>
+
+                    <!-- Admin Login Form (Supabase Auth) -->
+                    <form id="form-auth-admin" onsubmit="window.app.handleAdminLogin(event)" class="space-y-3">
+                        <p class="text-xs text-slate-500">Login Admin menggunakan <strong>Supabase Authentication</strong> untuk mengelola seluruh portofolio, tugas, dan foto.</p>
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 mb-1">Email Admin</label>
+                            <input type="email" id="admin-email" required placeholder="raisya@uwn.ac.id" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-xs">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 mb-1">Password</label>
+                            <input type="password" id="admin-password" required placeholder="••••••••" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-xs">
+                        </div>
+                        <button type="submit" class="w-full py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold shadow">
+                            Masuk sebagai Admin
+                        </button>
+                    </form>
+
+                    <!-- Dosen / Reviewer Login Form (Database Table Query) -->
+                    <form id="form-auth-reviewer" onsubmit="window.app.handleReviewerLogin(event)" class="hidden space-y-3">
+                        <p class="text-xs text-slate-500">Login khusus Dosen Pengampu / Reviewer menggunakan Username & Password dari tabel database.</p>
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 mb-1">Username Dosen / Reviewer</label>
+                            <input type="text" id="rev-username" required placeholder="dosen_uwn" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-xs">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 mb-1">Kode Akses / Password</label>
+                            <input type="password" id="rev-password" required placeholder="•••" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-xs">
+                        </div>
+                        <button type="submit" class="w-full py-2.5 rounded-xl bg-sky-600 hover:bg-sky-700 text-white text-xs font-bold shadow">
+                            Masuk sebagai Dosen / Reviewer
+                        </button>
+                    </form>
+                </div>
+            `);
+        },
+
+        toggleAuthForm(type) {
+            const adminForm = document.getElementById('form-auth-admin');
+            const revForm = document.getElementById('form-auth-reviewer');
+            const btnAdmin = document.getElementById('tab-btn-admin');
+            const btnRev = document.getElementById('tab-btn-reviewer');
+            if (type === 'admin') {
+                adminForm.classList.remove('hidden');
+                revForm.classList.add('hidden');
+                btnAdmin.className = 'py-2 rounded-xl text-xs font-bold bg-white text-indigo-700 shadow-sm';
+                btnRev.className = 'py-2 rounded-xl text-xs font-bold text-slate-600';
+            } else {
+                adminForm.classList.add('hidden');
+                revForm.classList.remove('hidden');
+                btnRev.className = 'py-2 rounded-xl text-xs font-bold bg-white text-sky-700 shadow-sm';
+                btnAdmin.className = 'py-2 rounded-xl text-xs font-bold text-slate-600';
+            }
+        },
+
+        async handleAdminLogin(e) {
+            e.preventDefault();
+            const email = document.getElementById('admin-email').value.trim();
+            const password = document.getElementById('admin-password').value;
+
+            if (IS_PREVIEW) {
+                state.role = 'admin';
+                state.currentUser = { email, name: 'Raisya (Admin)' };
+                closeModal();
+                showToast('Berhasil login Admin (Mode Preview)');
+                renderApp();
+                return;
+            }
+
+            if (!supabase) return showToast('Konfigurasi Supabase belum diisi', 'error');
+            const { data, error } = await supabase.auth.signInWithPassword({ email, password });
+            if (error) return showToast(error.message, 'error');
+            state.role = 'admin';
+            state.currentUser = { email: data.user.email, name: 'Raisya (Admin)' };
+            closeModal();
+            showToast('Login Admin berhasil');
+            await loadAllSupabaseData();
+        },
+
+        async handleReviewerLogin(e) {
+            e.preventDefault();
+            const username = document.getElementById('rev-username').value.trim();
+            const password = document.getElementById('rev-password').value;
+
+            if (IS_PREVIEW) {
+                const found = state.reviewer_users.find(u => u.username === username && u.password === password);
+                if (!found) return showToast('Username atau password Dosen tidak cocok (Coba: dosen_uwn / 123)', 'error');
+                state.role = 'reviewer';
+                state.currentUser = found;
+                closeModal();
+                showToast(`Selamat datang, ${found.full_name}`);
+                renderApp();
+                return;
+            }
+
+            if (!supabase) return showToast('Konfigurasi Supabase belum diisi', 'error');
+            const { data, error } = await supabase
+                .from('reviewer_users')
+                .select('*')
+                .eq('username', username)
+                .eq('password', password)
+                .maybeSingle();
+
+            if (error || !data) return showToast('Username atau Password Dosen salah', 'error');
+            state.role = 'reviewer';
+            state.currentUser = data;
+            closeModal();
+            showToast(`Selamat datang, ${data.full_name}`);
+            renderApp();
+        },
+
+        async logout() {
+            if (!IS_PREVIEW && supabase && state.role === 'admin') {
+                await supabase.auth.signOut();
+            }
+            state.role = 'public';
+            state.currentUser = null;
+            showToast('Anda telah keluar dari sesi akses', 'info');
+            renderApp();
+        },
+
+        // ============================================================================
+        // QUICK IMAGE UPLOAD HANDLERS (UNTUK SEMUA GAMBAR DI APLIKASI)
+        // ============================================================================
+        async QuickUploadAvatar(event) {
+            const file = event.target.files?.[0];
+            if (!file) return;
+            try {
+                const dataUrl = await compressAndReadImage(file, 500, 0.85);
+                state.profile.avatar_url = dataUrl;
+                if (!IS_PREVIEW && supabase && state.profile.id) {
+                    await supabase.from('profile_settings').update({ avatar_url: dataUrl }).eq('id', state.profile.id);
+                }
+                showToast('Foto Profil berhasil diperbarui!');
+                renderApp();
+            } catch (err) {
+                showToast('Gagal mengunggah foto profil', 'error');
+            }
+        },
+
+        async QuickUploadBanner(event) {
+            const file = event.target.files?.[0];
+            if (!file) return;
+            try {
+                const dataUrl = await compressAndReadImage(file, 1200, 0.82);
+                state.profile.banner_url = dataUrl;
+                if (!IS_PREVIEW && supabase && state.profile.id) {
+                    await supabase.from('profile_settings').update({ banner_url: dataUrl }).eq('id', state.profile.id);
+                }
+                showToast('Foto Sampul berhasil diperbarui!');
+                renderApp();
+            } catch (err) {
+                showToast('Gagal mengunggah foto sampul', 'error');
+            }
+        },
+
+        async QuickUploadAssignmentImage(event, assignmentId) {
+            const file = event.target.files?.[0];
+            if (!file) return;
+            try {
+                const dataUrl = await compressAndReadImage(file, 900, 0.82);
+                const idx = state.assignments.findIndex(a => a.id === assignmentId);
+                if (idx > -1) state.assignments[idx].image_url = dataUrl;
+                if (!IS_PREVIEW && supabase) {
+                    await supabase.from('assignments').update({ image_url: dataUrl }).eq('id', assignmentId);
+                }
+                showToast('Foto bukti tugas berhasil diganti!');
+                renderApp();
+            } catch (err) {
+                showToast('Gagal mengunggah foto tugas', 'error');
+            }
+        },
+
+        async QuickUploadPortfolioImage(event, portfolioId) {
+            const file = event.target.files?.[0];
+            if (!file) return;
+            try {
+                const dataUrl = await compressAndReadImage(file, 900, 0.82);
+                const idx = state.portfolio_items.findIndex(p => p.id === portfolioId);
+                if (idx > -1) state.portfolio_items[idx].image_url = dataUrl;
+                if (!IS_PREVIEW && supabase) {
+                    await supabase.from('portfolio_items').update({ image_url: dataUrl }).eq('id', portfolioId);
+                }
+                showToast('Foto karya/sertifikat berhasil diganti!');
+                renderApp();
+            } catch (err) {
+                showToast('Gagal mengunggah foto karya', 'error');
+            }
+        },
+
+        // Helper for Modal File Input Preview
+        async handleModalFileUpload(event, targetInputId, previewImgId) {
+            const file = event.target.files?.[0];
+            if (!file) return;
+            try {
+                const dataUrl = await compressAndReadImage(file, 900, 0.82);
+                document.getElementById(targetInputId).value = dataUrl;
+                const previewEl = document.getElementById(previewImgId);
+                if (previewEl) {
+                    previewEl.src = dataUrl;
+                    previewEl.classList.remove('hidden');
+                }
+                showToast('Gambar siap disimpan');
+            } catch (err) {
+                showToast('Gagal memproses file gambar', 'error');
+            }
+        },
+
+        // ============================================================================
+        // CRUD 1: EDIT PROFIL & SOSIAL MEDIA
+        // ============================================================================
+        openProfileModal() {
+            const p = state.profile;
+            openModal(`
+                <div class="flex items-center justify-between pb-3 border-b border-slate-100">
+                    <h3 class="font-heading font-bold text-slate-900 text-lg">Edit Profil, Foto & Sosial Media</h3>
+                    <button onclick="window.app.closeModal()" class="w-8 h-8 rounded-xl bg-slate-100 text-slate-500 flex items-center justify-center"><i class="fa-solid fa-xmark"></i></button>
+                </div>
+                <form onsubmit="window.app.saveProfile(event)" class="mt-4 space-y-3 text-xs">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        <div>
+                            <label class="font-bold text-slate-700 block mb-1">Nama Lengkap</label>
+                            <input type="text" id="prof-name" value="${p.full_name || ''}" required class="w-full px-3 py-2 rounded-xl bg-slate-50 border border-slate-200">
+                        </div>
+                        <div>
+                            <label class="font-bold text-slate-700 block mb-1">NIM</label>
+                            <input type="text" id="prof-nim" value="${p.nim || ''}" class="w-full px-3 py-2 rounded-xl bg-slate-50 border border-slate-200">
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        <div>
+                            <label class="font-bold text-slate-700 block mb-1">Program Studi / Jurusan</label>
+                            <input type="text" id="prof-prodi" value="${p.program_studi || ''}" class="w-full px-3 py-2 rounded-xl bg-slate-50 border border-slate-200">
+                        </div>
+                        <div>
+                            <label class="font-bold text-slate-700 block mb-1">Universitas</label>
+                            <input type="text" id="prof-univ" value="${p.university || 'Universitas Widya Nusantara'}" class="w-full px-3 py-2 rounded-xl bg-slate-50 border border-slate-200">
+                        </div>
+                    </div>
+                    <div>
+                        <label class="font-bold text-slate-700 block mb-1">Deskripsi Singkat / Bio Akademik</label>
+                        <textarea id="prof-bio" rows="2" class="w-full px-3 py-2 rounded-xl bg-slate-50 border border-slate-200">${p.bio || ''}</textarea>
+                    </div>
+                    <div>
+                        <label class="font-bold text-slate-700 block mb-1">Keahlian (Pisahkan dengan koma)</label>
+                        <input type="text" id="prof-skills" value="${p.skills || ''}" class="w-full px-3 py-2 rounded-xl bg-slate-50 border border-slate-200">
+                    </div>
+
+                    <!-- Upload Foto Profil & Sampul -->
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 p-3 rounded-2xl bg-indigo-50/60 border border-indigo-100">
+                        <div>
+                            <label class="font-bold text-indigo-900 block mb-1">Foto Profil (Upload / URL)</label>
+                            <input type="file" accept="image/*" onchange="window.app.handleModalFileUpload(event, 'prof-avatar', 'preview-prof-avatar')" class="mb-1.5 block w-full text-[11px]">
+                            <input type="text" id="prof-avatar" value="${p.avatar_url || ''}" placeholder="Atau tempel URL gambar" class="w-full px-2.5 py-1.5 rounded-lg bg-white border border-slate-200 text-[11px]">
+                            <img id="preview-prof-avatar" src="${p.avatar_url || ''}" class="mt-2 h-14 w-14 rounded-xl object-cover border border-white shadow">
+                        </div>
+                        <div>
+                            <label class="font-bold text-indigo-900 block mb-1">Foto Sampul (Upload / URL)</label>
+                            <input type="file" accept="image/*" onchange="window.app.handleModalFileUpload(event, 'prof-banner', 'preview-prof-banner')" class="mb-1.5 block w-full text-[11px]">
+                            <input type="text" id="prof-banner" value="${p.banner_url || ''}" placeholder="Atau tempel URL banner" class="w-full px-2.5 py-1.5 rounded-lg bg-white border border-slate-200 text-[11px]">
+                            <img id="preview-prof-banner" src="${p.banner_url || ''}" class="mt-2 h-14 w-full rounded-xl object-cover border border-white shadow">
+                        </div>
+                    </div>
+
+                    <!-- Nomor WA & Sosial Media -->
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1">
+                        <div>
+                            <label class="font-bold text-emerald-700 block mb-1"><i class="fa-brands fa-whatsapp"></i> Nomor WhatsApp (Awali 62)</label>
+                            <input type="text" id="prof-wa" value="${p.whatsapp_number || ''}" placeholder="6281234567890" class="w-full px-3 py-2 rounded-xl bg-slate-50 border border-slate-200">
+                        </div>
+                        <div>
+                            <label class="font-bold text-pink-600 block mb-1"><i class="fa-brands fa-instagram"></i> Link Instagram</label>
+                            <input type="text" id="prof-ig" value="${p.instagram_url || ''}" placeholder="https://instagram.com/..." class="w-full px-3 py-2 rounded-xl bg-slate-50 border border-slate-200">
+                        </div>
+                        <div>
+                            <label class="font-bold text-blue-600 block mb-1"><i class="fa-brands fa-facebook"></i> Link Facebook</label>
+                            <input type="text" id="prof-fb" value="${p.facebook_url || ''}" placeholder="https://facebook.com/..." class="w-full px-3 py-2 rounded-xl bg-slate-50 border border-slate-200">
+                        </div>
+                        <div>
+                            <label class="font-bold text-sky-700 block mb-1"><i class="fa-brands fa-linkedin"></i> Link LinkedIn / Lainnya</label>
+                            <input type="text" id="prof-li" value="${p.linkedin_url || ''}" placeholder="https://linkedin.com/in/..." class="w-full px-3 py-2 rounded-xl bg-slate-50 border border-slate-200">
+                        </div>
+                    </div>
+
+                    <div class="pt-3 flex justify-end gap-2">
+                        <button type="button" onclick="window.app.closeModal()" class="px-4 py-2 rounded-xl bg-slate-100 text-slate-600 font-bold">Batal</button>
+                        <button type="submit" class="px-5 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-bold shadow">Simpan Profil</button>
+                    </div>
+                </form>
+            `);
+        },
+
+        async saveProfile(e) {
+            e.preventDefault();
+            const updated = {
+                ...state.profile,
+                full_name: document.getElementById('prof-name').value.trim(),
+                nim: document.getElementById('prof-nim').value.trim(),
+                program_studi: document.getElementById('prof-prodi').value.trim(),
+                university: document.getElementById('prof-univ').value.trim(),
+                bio: document.getElementById('prof-bio').value.trim(),
+                skills: document.getElementById('prof-skills').value.trim(),
+                avatar_url: document.getElementById('prof-avatar').value.trim(),
+                banner_url: document.getElementById('prof-banner').value.trim(),
+                whatsapp_number: document.getElementById('prof-wa').value.trim(),
+                instagram_url: document.getElementById('prof-ig').value.trim(),
+                facebook_url: document.getElementById('prof-fb').value.trim(),
+                linkedin_url: document.getElementById('prof-li').value.trim()
+            };
+
+            state.profile = updated;
+            if (!IS_PREVIEW && supabase) {
+                if (updated.id) {
+                    await supabase.from('profile_settings').update(updated).eq('id', updated.id);
+                } else {
+                    const { data } = await supabase.from('profile_settings').insert([updated]).select().single();
+                    if (data) state.profile = data;
+                }
+            }
+            closeModal();
+            showToast('Profil & Media Sosial berhasil disimpan!');
+            renderApp();
+        },
+
+        // ============================================================================
+        // CRUD 2: MATA KULIAH
+        // ============================================================================
+        openCourseModal(courseId = null) {
+            const existing = courseId ? state.courses.find(c => c.id === courseId) : null;
+            openModal(`
+                <div class="flex items-center justify-between pb-3 border-b border-slate-100">
+                    <h3 class="font-heading font-bold text-slate-900 text-lg">${existing ? 'Edit Mata Kuliah' : 'Tambah Mata Kuliah Baru'}</h3>
+                    <button onclick="window.app.closeModal()" class="w-8 h-8 rounded-xl bg-slate-100 text-slate-500 flex items-center justify-center"><i class="fa-solid fa-xmark"></i></button>
+                </div>
+                <form onsubmit="window.app.saveCourse(event, '${courseId || ''}')" class="mt-4 space-y-3 text-xs">
+                    <div class="grid grid-cols-2 gap-3">
+                        <div>
+                            <label class="font-bold text-slate-700 block mb-1">Kode Mata Kuliah</label>
+                            <input type="text" id="crs-code" required value="${existing?.course_code || ''}" placeholder="UWN-301" class="w-full px-3 py-2 rounded-xl bg-slate-50 border border-slate-200">
+                        </div>
+                        <div>
+                            <label class="font-bold text-slate-700 block mb-1">Semester & SKS</label>
+                            <div class="flex gap-2">
+                                <input type="text" id="crs-sem" value="${existing?.semester || 'Semester 5'}" placeholder="Semester 5" class="w-2/3 px-3 py-2 rounded-xl bg-slate-50 border border-slate-200">
+                                <input type="number" id="crs-sks" value="${existing?.credits || 3}" placeholder="SKS" class="w-1/3 px-3 py-2 rounded-xl bg-slate-50 border border-slate-200">
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <label class="font-bold text-slate-700 block mb-1">Nama Mata Kuliah</label>
+                        <input type="text" id="crs-name" required value="${existing?.course_name || ''}" placeholder="Contoh: Metodologi Penelitian" class="w-full px-3 py-2 rounded-xl bg-slate-50 border border-slate-200">
+                    </div>
+                    <div>
+                        <label class="font-bold text-slate-700 block mb-1">Nama Dosen Pengampu</label>
+                        <input type="text" id="crs-lecturer" required value="${existing?.lecturer_name || ''}" placeholder="Nama Dosen beserta Gelar" class="w-full px-3 py-2 rounded-xl bg-slate-50 border border-slate-200">
+                    </div>
+                    <div class="pt-3 flex justify-end gap-2">
+                        <button type="button" onclick="window.app.closeModal()" class="px-4 py-2 rounded-xl bg-slate-100 text-slate-600 font-bold">Batal</button>
+                        <button type="submit" class="px-5 py-2 rounded-xl bg-indigo-600 text-white font-bold">Simpan Mata Kuliah</button>
+                    </div>
+                </form>
+            `);
+        },
+
+        async saveCourse(e, courseId) {
+            e.preventDefault();
+            const payload = {
+                course_code: document.getElementById('crs-code').value.trim(),
+                course_name: document.getElementById('crs-name').value.trim(),
+                lecturer_name: document.getElementById('crs-lecturer').value.trim(),
+                semester: document.getElementById('crs-sem').value.trim(),
+                credits: parseInt(document.getElementById('crs-sks').value, 10) || 2
+            };
+
+            if (IS_PREVIEW) {
+                if (courseId) {
+                    const idx = state.courses.findIndex(c => c.id === courseId);
+                    if (idx > -1) state.courses[idx] = { ...state.courses[idx], ...payload };
+                } else {
+                    state.courses.push({ id: 'crs-' + Date.now(), ...payload });
+                }
+            } else if (supabase) {
+                if (courseId) {
+                    await supabase.from('courses').update(payload).eq('id', courseId);
+                } else {
+                    await supabase.from('courses').insert([payload]);
+                }
+                await loadAllSupabaseData();
+            }
+            closeModal();
+            showToast('Data Mata Kuliah berhasil disimpan');
+            renderApp();
+        },
+
+        async deleteCourse(courseId) {
+            if (IS_PREVIEW) {
+                state.courses = state.courses.filter(c => c.id !== courseId);
+            } else if (supabase) {
+                await supabase.from('courses').delete().eq('id', courseId);
+                await loadAllSupabaseData();
+            }
+            showToast('Mata Kuliah dihapus', 'info');
+            renderApp();
+        },
+
+        filterAssignmentsByCourse(courseId) {
+            state.assignmentCourseFilter = courseId;
+            state.activeTab = 'assignments';
+            renderApp();
+        },
+
+        // ============================================================================
+        // CRUD 3: TUGAS DOSEN & PROGRES
+        // ============================================================================
+        setAssignmentCourseFilter(val) {
+            state.assignmentCourseFilter = val;
+            renderApp();
+        },
+
+        setAssignmentStatusFilter(val) {
+            state.assignmentStatusFilter = val;
+            renderApp();
+        },
+
+        openAssignmentModalWithDate(dateStr) {
+            this.openAssignmentModal(null, dateStr);
+        },
+
+        openAssignmentModal(assignmentId = null, presetDueDate = null) {
+            const existing = assignmentId ? state.assignments.find(a => a.id === assignmentId) : null;
+            openModal(`
+                <div class="flex items-center justify-between pb-3 border-b border-slate-100">
+                    <h3 class="font-heading font-bold text-slate-900 text-lg">${existing ? 'Edit Tugas Dosen' : 'Tambah Tugas Dosen Baru'}</h3>
+                    <button onclick="window.app.closeModal()" class="w-8 h-8 rounded-xl bg-slate-100 text-slate-500 flex items-center justify-center"><i class="fa-solid fa-xmark"></i></button>
+                </div>
+                <form onsubmit="window.app.saveAssignment(event, '${assignmentId || ''}')" class="mt-4 space-y-3 text-xs">
+                    <div>
+                        <label class="font-bold text-slate-700 block mb-1">Pilih Mata Kuliah</label>
+                        <select id="asg-course" required class="w-full px-3 py-2 rounded-xl bg-slate-50 border border-slate-200">
+                            ${state.courses.length === 0 ? `<option value="">-- Tambahkan Mata Kuliah Terlebih Dahulu --</option>` : ''}
+                            ${state.courses.map(c => `
+                                <option value="${c.id}" ${existing?.course_id === c.id ? 'selected' : ''}>${c.course_code} - ${c.course_name} (${c.lecturer_name})</option>
+                            `).join('')}
+                        </select>
+                    </div>
+                    <div>
+                        <label class="font-bold text-slate-700 block mb-1">Judul Tugas Kuliah</label>
+                        <input type="text" id="asg-title" required value="${existing?.title || ''}" placeholder="Contoh: Makalah Analisis Sistem..." class="w-full px-3 py-2 rounded-xl bg-slate-50 border border-slate-200">
+                    </div>
+                    <div class="grid grid-cols-2 gap-3">
+                        <div>
+                            <label class="font-bold text-slate-700 block mb-1">Kategori Tugas</label>
+                            <select id="asg-cat" class="w-full px-3 py-2 rounded-xl bg-slate-50 border border-slate-200">
+                                ${['Individu', 'Kelompok', 'Praktikum', 'Presentasi', 'UTS / UAS'].map(cat => `
+                                    <option value="${cat}" ${existing?.category === cat ? 'selected' : ''}>${cat}</option>
+                                `).join('')}
+                            </select>
+                        </div>
+                        <div>
+                            <label class="font-bold text-slate-700 block mb-1">Status Pengerjaan</label>
+                            <select id="asg-status" class="w-full px-3 py-2 rounded-xl bg-slate-50 border border-slate-200">
+                                ${['Belum Dikerjakan', 'Sementara Dikerjakan', 'Menunggu Review', 'Selesai'].map(st => `
+                                    <option value="${st}" ${existing?.status === st ? 'selected' : ''}>${st}</option>
+                                `).join('')}
+                            </select>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-2 gap-3">
+                        <div>
+                            <label class="font-bold text-slate-700 block mb-1">Tanggal Tugas Diberikan</label>
+                            <input type="date" id="asg-assigned" required value="${existing?.assigned_date || todayStr}" class="w-full px-3 py-2 rounded-xl bg-slate-50 border border-slate-200">
+                        </div>
+                        <div>
+                            <label class="font-bold text-rose-600 block mb-1">Tanggal Batas Dikumpul (Deadline)</label>
+                            <input type="date" id="asg-due" required value="${existing?.due_date || presetDueDate || next3DaysStr}" class="w-full px-3 py-2 rounded-xl bg-rose-50 border border-rose-200">
+                        </div>
+                    </div>
+                    <div>
+                        <label class="font-bold text-slate-700 block mb-1">Deskripsi & Catatan Tugas</label>
+                        <textarea id="asg-desc" rows="2" class="w-full px-3 py-2 rounded-xl bg-slate-50 border border-slate-200">${existing?.description || ''}</textarea>
+                    </div>
+
+                    <!-- Direct Image Upload for Assignment -->
+                    <div class="p-3 rounded-2xl bg-indigo-50/60 border border-indigo-100 space-y-1.5">
+                        <label class="font-bold text-indigo-900 block">Upload Foto / Screenshot Bukti Tugas</label>
+                        <input type="file" accept="image/*" onchange="window.app.handleModalFileUpload(event, 'asg-img', 'preview-asg-img')" class="block w-full text-[11px]">
+                        <input type="text" id="asg-img" value="${existing?.image_url || ''}" placeholder="Atau tempel URL foto tugas" class="w-full px-2.5 py-1.5 rounded-lg bg-white border border-slate-200 text-[11px]">
+                        <img id="preview-asg-img" src="${existing?.image_url || ''}" class="${existing?.image_url ? '' : 'hidden'} mt-2 h-20 rounded-xl object-cover border border-white shadow">
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        <div>
+                            <label class="font-bold text-rose-600 block mb-1"><i class="fa-brands fa-youtube"></i> Link Video YouTube Tugas (Opsional)</label>
+                            <input type="text" id="asg-yt" value="${existing?.youtube_url || ''}" placeholder="https://www.youtube.com/watch?v=..." class="w-full px-3 py-2 rounded-xl bg-slate-50 border border-slate-200">
+                        </div>
+                        <div>
+                            <label class="font-bold text-slate-700 block mb-1"><i class="fa-solid fa-link"></i> Link File Drive / Dokumen</label>
+                            <input type="text" id="asg-link" value="${existing?.attachment_link || ''}" placeholder="https://drive.google.com/..." class="w-full px-3 py-2 rounded-xl bg-slate-50 border border-slate-200">
+                        </div>
+                    </div>
+
+                    <div class="pt-3 flex justify-end gap-2">
+                        <button type="button" onclick="window.app.closeModal()" class="px-4 py-2 rounded-xl bg-slate-100 text-slate-600 font-bold">Batal</button>
+                        <button type="submit" class="px-5 py-2 rounded-xl bg-indigo-600 text-white font-bold shadow">Simpan Tugas</button>
+                    </div>
+                </form>
+            `);
+        },
+
+        async saveAssignment(e, assignmentId) {
+            e.preventDefault();
+            const payload = {
+                course_id: document.getElementById('asg-course').value,
+                title: document.getElementById('asg-title').value.trim(),
+                category: document.getElementById('asg-cat').value,
+                status: document.getElementById('asg-status').value,
+                assigned_date: document.getElementById('asg-assigned').value,
+                due_date: document.getElementById('asg-due').value,
+                description: document.getElementById('asg-desc').value.trim(),
+                image_url: document.getElementById('asg-img').value.trim(),
+                youtube_url: document.getElementById('asg-yt').value.trim(),
+                attachment_link: document.getElementById('asg-link').value.trim()
+            };
+
+            if (IS_PREVIEW) {
+                if (assignmentId) {
+                    const idx = state.assignments.findIndex(a => a.id === assignmentId);
+                    if (idx > -1) state.assignments[idx] = { ...state.assignments[idx], ...payload };
+                } else {
+                    state.assignments.unshift({ id: 'asg-' + Date.now(), ...payload });
+                }
+            } else if (supabase) {
+                if (assignmentId) {
+                    await supabase.from('assignments').update(payload).eq('id', assignmentId);
+                } else {
+                    await supabase.from('assignments').insert([payload]);
+                }
+                await loadAllSupabaseData();
+            }
+            closeModal();
+            showToast('Data Tugas Dosen berhasil disimpan!');
+            renderApp();
+        },
+
+        async quickChangeAssignmentStatus(assignmentId, newStatus) {
+            const idx = state.assignments.findIndex(a => a.id === assignmentId);
+            if (idx > -1) state.assignments[idx].status = newStatus;
+            if (!IS_PREVIEW && supabase) {
+                await supabase.from('assignments').update({ status: newStatus }).eq('id', assignmentId);
+            }
+            showToast(`Status tugas diubah menjadi: ${newStatus}`);
+            renderApp();
+        },
+
+        async deleteAssignment(assignmentId) {
+            if (IS_PREVIEW) {
+                state.assignments = state.assignments.filter(a => a.id !== assignmentId);
+            } else if (supabase) {
+                await supabase.from('assignments').delete().eq('id', assignmentId);
+                await loadAllSupabaseData();
+            }
+            showToast('Tugas berhasil dihapus', 'info');
+            renderApp();
+        },
+
+        // ============================================================================
+        // CALENDAR NAVIGATION
+        // ============================================================================
+        changeCalendarMonth(offset) {
+            let m = state.calendarMonth + offset;
+            let y = state.calendarYear;
+            if (m < 0) { m = 11; y--; }
+            if (m > 11) { m = 0; y++; }
+            state.calendarMonth = m;
+            state.calendarYear = y;
+            renderApp();
+        },
+
+        resetCalendarToday() {
+            const now = new Date();
+            state.calendarYear = now.getFullYear();
+            state.calendarMonth = now.getMonth();
+            state.selectedCalendarDate = todayStr;
+            renderApp();
+        },
+
+        selectCalendarDate(dateStr) {
+            state.selectedCalendarDate = dateStr;
+            renderApp();
+        },
+
+        // ============================================================================
+        // CRUD 4: RUANG VIDEO YOUTUBE
+        // ============================================================================
+        playYoutubeVideo(videoId) {
+            state.activeYoutubeVideoId = videoId;
+            renderApp();
+            document.getElementById('main-scroll-area').scrollTo({ top: 0, behavior: 'smooth' });
+        },
+
+        openYoutubeModal(videoId = null) {
+            const existing = videoId ? state.youtube_videos.find(v => v.id === videoId) : null;
+            openModal(`
+                <div class="flex items-center justify-between pb-3 border-b border-slate-100">
+                    <h3 class="font-heading font-bold text-slate-900 text-lg">${existing ? 'Edit Video YouTube' : 'Tambah Link Video YouTube'}</h3>
+                    <button onclick="window.app.closeModal()" class="w-8 h-8 rounded-xl bg-slate-100 text-slate-500 flex items-center justify-center"><i class="fa-solid fa-xmark"></i></button>
+                </div>
+                <form onsubmit="window.app.saveYoutubeVideo(event, '${videoId || ''}')" class="mt-4 space-y-3 text-xs">
+                    <div>
+                        <label class="font-bold text-slate-700 block mb-1">Judul Video</label>
+                        <input type="text" id="yt-title" required value="${existing?.title || ''}" placeholder="Presentasi Tugas / Dokumentasi Praktikum UWN" class="w-full px-3 py-2 rounded-xl bg-slate-50 border border-slate-200">
+                    </div>
+                    <div>
+                        <label class="font-bold text-slate-700 block mb-1">Kategori Video</label>
+                        <input type="text" id="yt-cat" value="${existing?.category || 'Presentasi Tugas'}" placeholder="Presentasi Tugas / Kegiatan Kampus" class="w-full px-3 py-2 rounded-xl bg-slate-50 border border-slate-200">
+                    </div>
+                    <div>
+                        <label class="font-bold text-rose-600 block mb-1"><i class="fa-brands fa-youtube"></i> Link URL YouTube</label>
+                        <input type="text" id="yt-url" required value="${existing?.youtube_url || ''}" placeholder="https://www.youtube.com/watch?v=... atau https://youtu.be/..." class="w-full px-3 py-2 rounded-xl bg-slate-50 border border-slate-200">
+                        <p class="text-[10px] text-slate-400 mt-1">Otomatis dikonversi menjadi pemutar langsung di dalam aplikasi.</p>
+                    </div>
+                    <div>
+                        <label class="font-bold text-slate-700 block mb-1">Deskripsi Video</label>
+                        <textarea id="yt-desc" rows="2" class="w-full px-3 py-2 rounded-xl bg-slate-50 border border-slate-200">${existing?.description || ''}</textarea>
+                    </div>
+                    <div class="pt-3 flex justify-end gap-2">
+                        <button type="button" onclick="window.app.closeModal()" class="px-4 py-2 rounded-xl bg-slate-100 text-slate-600 font-bold">Batal</button>
+                        <button type="submit" class="px-5 py-2 rounded-xl bg-rose-600 hover:bg-rose-700 text-white font-bold shadow">Simpan & Tampilkan Video</button>
+                    </div>
+                </form>
+            `);
+        },
+
+        async saveYoutubeVideo(e, videoId) {
+            e.preventDefault();
+            const url = document.getElementById('yt-url').value.trim();
+            if (!extractYoutubeId(url)) {
+                return showToast('Link YouTube tidak valid, pastikan menyertakan link video YouTube yang benar.', 'error');
+            }
+            const payload = {
+                title: document.getElementById('yt-title').value.trim(),
+                category: document.getElementById('yt-cat').value.trim(),
+                youtube_url: url,
+                description: document.getElementById('yt-desc').value.trim()
+            };
+
+            if (IS_PREVIEW) {
+                if (videoId) {
+                    const idx = state.youtube_videos.findIndex(v => v.id === videoId);
+                    if (idx > -1) state.youtube_videos[idx] = { ...state.youtube_videos[idx], ...payload };
+                } else {
+                    const newId = 'yt-' + Date.now();
+                    state.youtube_videos.unshift({ id: newId, ...payload });
+                    state.activeYoutubeVideoId = newId;
+                }
+            } else if (supabase) {
+                if (videoId) {
+                    await supabase.from('youtube_videos').update(payload).eq('id', videoId);
+                } else {
+                    await supabase.from('youtube_videos').insert([payload]);
+                }
+                await loadAllSupabaseData();
+            }
+            closeModal();
+            showToast('Video YouTube berhasil disimpan!');
+            renderApp();
+        },
+
+        async deleteYoutubeVideo(videoId) {
+            if (IS_PREVIEW) {
+                state.youtube_videos = state.youtube_videos.filter(v => v.id !== videoId);
+            } else if (supabase) {
+                await supabase.from('youtube_videos').delete().eq('id', videoId);
+                await loadAllSupabaseData();
+            }
+            showToast('Video dihapus', 'info');
+            renderApp();
+        },
+
+        // ============================================================================
+        // CRUD 5: KARYA & SERTIFIKAT (PORTFOLIO)
+        // ============================================================================
+        setPortfolioFilter(type) {
+            state.portfolioTypeFilter = type;
+            renderApp();
+        },
+
+        openPortfolioModal(itemId = null) {
+            const existing = itemId ? state.portfolio_items.find(p => p.id === itemId) : null;
+            openModal(`
+                <div class="flex items-center justify-between pb-3 border-b border-slate-100">
+                    <h3 class="font-heading font-bold text-slate-900 text-lg">${existing ? 'Edit Karya / Sertifikat' : 'Tambah Karya / Sertifikat'}</h3>
+                    <button onclick="window.app.closeModal()" class="w-8 h-8 rounded-xl bg-slate-100 text-slate-500 flex items-center justify-center"><i class="fa-solid fa-xmark"></i></button>
+                </div>
+                <form onsubmit="window.app.savePortfolioItem(event, '${itemId || ''}')" class="mt-4 space-y-3 text-xs">
+                    <div class="grid grid-cols-2 gap-3">
+                        <div>
+                            <label class="font-bold text-slate-700 block mb-1">Jenis Item</label>
+                            <select id="port-type" class="w-full px-3 py-2 rounded-xl bg-slate-50 border border-slate-200">
+                                <option value="Proyek" ${existing?.item_type === 'Proyek' ? 'selected' : ''}>Proyek / Karya</option>
+                                <option value="Sertifikat" ${existing?.item_type === 'Sertifikat' ? 'selected' : ''}>Sertifikat / Prestasi</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="font-bold text-slate-700 block mb-1">Tahun / Tanggal</label>
+                            <input type="text" id="port-date" value="${existing?.date_achieved || '2025'}" placeholder="2025" class="w-full px-3 py-2 rounded-xl bg-slate-50 border border-slate-200">
+                        </div>
+                    </div>
+                    <div>
+                        <label class="font-bold text-slate-700 block mb-1">Judul Karya / Nama Sertifikat</label>
+                        <input type="text" id="port-title" required value="${existing?.title || ''}" class="w-full px-3 py-2 rounded-xl bg-slate-50 border border-slate-200">
+                    </div>
+                    <div class="grid grid-cols-2 gap-3">
+                        <div>
+                            <label class="font-bold text-slate-700 block mb-1">Kategori</label>
+                            <input type="text" id="port-cat" value="${existing?.category || 'Akademik UWN'}" class="w-full px-3 py-2 rounded-xl bg-slate-50 border border-slate-200">
+                        </div>
+                        <div>
+                            <label class="font-bold text-slate-700 block mb-1">Penyelenggara / Instansi</label>
+                            <input type="text" id="port-issuer" value="${existing?.issuer_or_client || 'Universitas Widya Nusantara'}" class="w-full px-3 py-2 rounded-xl bg-slate-50 border border-slate-200">
+                        </div>
+                    </div>
+                    <div>
+                        <label class="font-bold text-slate-700 block mb-1">Deskripsi</label>
+                        <textarea id="port-desc" rows="2" class="w-full px-3 py-2 rounded-xl bg-slate-50 border border-slate-200">${existing?.description || ''}</textarea>
+                    </div>
+
+                    <!-- Direct Image Upload -->
+                    <div class="p-3 rounded-2xl bg-indigo-50/60 border border-indigo-100 space-y-1.5">
+                        <label class="font-bold text-indigo-900 block">Upload Foto Karya / Scan Sertifikat</label>
+                        <input type="file" accept="image/*" onchange="window.app.handleModalFileUpload(event, 'port-img', 'preview-port-img')" class="block w-full text-[11px]">
+                        <input type="text" id="port-img" value="${existing?.image_url || ''}" placeholder="Atau tempel URL gambar" class="w-full px-2.5 py-1.5 rounded-lg bg-white border border-slate-200 text-[11px]">
+                        <img id="preview-port-img" src="${existing?.image_url || ''}" class="${existing?.image_url ? '' : 'hidden'} mt-2 h-20 rounded-xl object-cover border border-white shadow">
+                    </div>
+
+                    <div>
+                        <label class="font-bold text-slate-700 block mb-1">Link Dokumen / Kredensial (Opsional)</label>
+                        <input type="text" id="port-link" value="${existing?.external_link || ''}" placeholder="https://..." class="w-full px-3 py-2 rounded-xl bg-slate-50 border border-slate-200">
+                    </div>
+
+                    <div class="pt-3 flex justify-end gap-2">
+                        <button type="button" onclick="window.app.closeModal()" class="px-4 py-2 rounded-xl bg-slate-100 text-slate-600 font-bold">Batal</button>
+                        <button type="submit" class="px-5 py-2 rounded-xl bg-indigo-600 text-white font-bold shadow">Simpan</button>
+                    </div>
+                </form>
+            `);
+        },
+
+        async savePortfolioItem(e, itemId) {
+            e.preventDefault();
+            const payload = {
+                item_type: document.getElementById('port-type').value,
+                date_achieved: document.getElementById('port-date').value.trim(),
+                title: document.getElementById('port-title').value.trim(),
+                category: document.getElementById('port-cat').value.trim(),
+                issuer_or_client: document.getElementById('port-issuer').value.trim(),
+                description: document.getElementById('port-desc').value.trim(),
+                image_url: document.getElementById('port-img').value.trim(),
+                external_link: document.getElementById('port-link').value.trim()
+            };
+
+            if (IS_PREVIEW) {
+                if (itemId) {
+                    const idx = state.portfolio_items.findIndex(p => p.id === itemId);
+                    if (idx > -1) state.portfolio_items[idx] = { ...state.portfolio_items[idx], ...payload };
+                } else {
+                    state.portfolio_items.unshift({ id: 'port-' + Date.now(), ...payload });
+                }
+            } else if (supabase) {
+                if (itemId) {
+                    await supabase.from('portfolio_items').update(payload).eq('id', itemId);
+                } else {
+                    await supabase.from('portfolio_items').insert([payload]);
+                }
+                await loadAllSupabaseData();
+            }
+            closeModal();
+            showToast('Item Portofolio berhasil disimpan!');
+            renderApp();
+        },
+
+        async deletePortfolioItem(itemId) {
+            if (IS_PREVIEW) {
+                state.portfolio_items = state.portfolio_items.filter(p => p.id !== itemId);
+            } else if (supabase) {
+                await supabase.from('portfolio_items').delete().eq('id', itemId);
+                await loadAllSupabaseData();
+            }
+            showToast('Item dihapus', 'info');
+            renderApp();
+        },
+
+        // ============================================================================
+        // CRUD 6: RUANG DOSEN & BUKU TAMU + MANAJEMEN AKUN REVIEWER
+        // ============================================================================
+        async submitGuestbook(e) {
+            e.preventDefault();
+            const payload = {
+                sender_name: document.getElementById('gb-name').value.trim(),
+                sender_role: document.getElementById('gb-role').value.trim(),
+                reviewer_id: state.role === 'reviewer' ? (state.currentUser?.id || null) : null,
+                message: document.getElementById('gb-message').value.trim(),
+                admin_reply: ''
+            };
+
+            if (IS_PREVIEW) {
+                state.guestbook_messages.unshift({ id: 'msg-' + Date.now(), ...payload });
+            } else if (supabase) {
+                await supabase.from('guestbook_messages').insert([payload]);
+                await loadAllSupabaseData();
+            }
+            showToast('Terima kasih! Catatan/pesan Anda berhasil dikirim.');
+            renderApp();
+        },
+
+        openReplyModal(msgId) {
+            const msg = state.guestbook_messages.find(m => m.id === msgId);
+            if (!msg) return;
+            openModal(`
+                <div class="flex items-center justify-between pb-3 border-b border-slate-100">
+                    <h3 class="font-heading font-bold text-slate-900 text-base">Balas Catatan ${msg.sender_name}</h3>
+                    <button onclick="window.app.closeModal()" class="w-8 h-8 rounded-xl bg-slate-100 text-slate-500 flex items-center justify-center"><i class="fa-solid fa-xmark"></i></button>
+                </div>
+                <form onsubmit="window.app.saveReply(event, '${msgId}')" class="mt-4 space-y-3 text-xs">
+                    <p class="p-3 rounded-xl bg-slate-50 text-slate-600 italic">"${msg.message}"</p>
+                    <div>
+                        <label class="font-bold text-slate-700 block mb-1">Balasan Raisya</label>
+                        <textarea id="reply-text" rows="3" required class="w-full px-3 py-2 rounded-xl bg-slate-50 border border-slate-200">${msg.admin_reply || ''}</textarea>
+                    </div>
+                    <div class="flex justify-end gap-2">
+                        <button type="submit" class="px-5 py-2 rounded-xl bg-indigo-600 text-white font-bold">Simpan Balasan</button>
+                    </div>
+                </form>
+            `);
+        },
+
+        async saveReply(e, msgId) {
+            e.preventDefault();
+            const reply = document.getElementById('reply-text').value.trim();
+            if (IS_PREVIEW) {
+                const idx = state.guestbook_messages.findIndex(m => m.id === msgId);
+                if (idx > -1) state.guestbook_messages[idx].admin_reply = reply;
+            } else if (supabase) {
+                await supabase.from('guestbook_messages').update({ admin_reply: reply }).eq('id', msgId);
+                await loadAllSupabaseData();
+            }
+            closeModal();
+            showToast('Balasan disimpan');
+            renderApp();
+        },
+
+        async deleteGuestbook(msgId) {
+            if (IS_PREVIEW) {
+                state.guestbook_messages = state.guestbook_messages.filter(m => m.id !== msgId);
+            } else if (supabase) {
+                await supabase.from('guestbook_messages').delete().eq('id', msgId);
+                await loadAllSupabaseData();
+            }
+            showToast('Pesan dihapus', 'info');
+            renderApp();
+        },
+
+        openReviewerModal() {
+            openModal(`
+                <div class="flex items-center justify-between pb-3 border-b border-slate-100">
+                    <h3 class="font-heading font-bold text-slate-900 text-base">Buat Akun Akses Dosen / Reviewer</h3>
+                    <button onclick="window.app.closeModal()" class="w-8 h-8 rounded-xl bg-slate-100 text-slate-500 flex items-center justify-center"><i class="fa-solid fa-xmark"></i></button>
+                </div>
+                <form onsubmit="window.app.saveReviewer(event)" class="mt-4 space-y-3 text-xs">
+                    <div>
+                        <label class="font-bold text-slate-700 block mb-1">Nama Dosen / Reviewer</label>
+                        <input type="text" id="new-rev-name" required placeholder="Dr. Hendra Wijaya, M.Kes" class="w-full px-3 py-2 rounded-xl bg-slate-50 border border-slate-200">
+                    </div>
+                    <div>
+                        <label class="font-bold text-slate-700 block mb-1">Jabatan</label>
+                        <input type="text" id="new-rev-role" required placeholder="Dosen Pembimbing UWN" class="w-full px-3 py-2 rounded-xl bg-slate-50 border border-slate-200">
+                    </div>
+                    <div class="grid grid-cols-2 gap-3">
+                        <div>
+                            <label class="font-bold text-slate-700 block mb-1">Username Login</label>
+                            <input type="text" id="new-rev-user" required placeholder="dosen_uwn" class="w-full px-3 py-2 rounded-xl bg-slate-50 border border-slate-200">
+                        </div>
+                        <div>
+                            <label class="font-bold text-slate-700 block mb-1">Password</label>
+                            <input type="text" id="new-rev-pass" required placeholder="123456" class="w-full px-3 py-2 rounded-xl bg-slate-50 border border-slate-200">
+                        </div>
+                    </div>
+                    <div class="flex justify-end gap-2 pt-2">
+                        <button type="submit" class="px-5 py-2 rounded-xl bg-indigo-600 text-white font-bold">Buat Akun Dosen</button>
+                    </div>
+                </form>
+            `);
+        },
+
+        async saveReviewer(e) {
+            e.preventDefault();
+            const payload = {
+                full_name: document.getElementById('new-rev-name').value.trim(),
+                role_title: document.getElementById('new-rev-role').value.trim(),
+                username: document.getElementById('new-rev-user').value.trim(),
+                password: document.getElementById('new-rev-pass').value.trim()
+            };
+            if (IS_PREVIEW) {
+                state.reviewer_users.push({ id: 'rev-' + Date.now(), ...payload });
+            } else if (supabase) {
+                await supabase.from('reviewer_users').insert([payload]);
+                await loadAllSupabaseData();
+            }
+            closeModal();
+            showToast('Akun Dosen berhasil ditambahkan');
+            renderApp();
+        },
+
+        async deleteReviewer(revId) {
+            if (IS_PREVIEW) {
+                state.reviewer_users = state.reviewer_users.filter(r => r.id !== revId);
+            } else if (supabase) {
+                await supabase.from('reviewer_users').delete().eq('id', revId);
+                await loadAllSupabaseData();
+            }
+            showToast('Akun Dosen dihapus', 'info');
+            renderApp();
+        }
+    };
+
+    // Jalankan Aplikasi
+    window.addEventListener('DOMContentLoaded', async () => {
+        if (!IS_PREVIEW) {
+            await loadAllSupabaseData();
+        }
+        renderApp();
+    });
+</script>
+</body>
+</html>
